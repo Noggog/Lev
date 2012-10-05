@@ -16,10 +16,10 @@ public class SaveEnum extends Setting<Enum> {
      *
      * @param title_
      * @param data_
-     * @param patchChanging
+     * @param extraFlags
      */
-    public SaveEnum(String title_, Enum data_, Boolean patchChanging) {
-        super(title_, data_, patchChanging);
+    public SaveEnum(String title_, Enum data_, Boolean[] extraFlags) {
+        super(title_, data_, extraFlags);
 	prototype = data_;
     }
 
@@ -35,7 +35,7 @@ public class SaveEnum extends Setting<Enum> {
 
     @Override
     public Setting<Enum> copyOf() {
-        lev.gui.SaveEnum out = new lev.gui.SaveEnum(title, data, patchChanging);
+        lev.gui.SaveEnum out = new lev.gui.SaveEnum(title, data, extraFlags);
         out.tie = tie;
         return out;
     }

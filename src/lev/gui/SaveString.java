@@ -10,8 +10,8 @@ package lev.gui;
  */
 class SaveString extends Setting<String> {
 
-    public SaveString(String title_, String data_, Boolean patchChanging) {
-        super(title_, data_, patchChanging);
+    public SaveString(String title_, String data_, Boolean[] extraFlags) {
+        super(title_, data_, extraFlags);
     }
 
     @Override
@@ -31,7 +31,7 @@ class SaveString extends Setting<String> {
 
     @Override
     public Setting<String> copyOf() {
-        SaveString out = new SaveString(title, data, patchChanging);
+        SaveString out = new SaveString(title, data, extraFlags);
         out.tie = tie;
         return out;
     }

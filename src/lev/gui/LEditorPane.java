@@ -95,4 +95,9 @@ public class LEditorPane extends LComponent {
     public void setOpaque(boolean on) {
 	pane.setOpaque(on);
     }
+    
+    @Override
+    public void setEnabled(boolean on) {
+	pane.setEnabled(on);
+    }
 }

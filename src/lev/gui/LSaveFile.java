@@ -4,6 +4,7 @@
  */
 package lev.gui;
 
+import java.awt.Color;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
@@ -44,7 +45,8 @@ public abstract class LSaveFile {
      * Stores the current settings displayed on the GUI.
      */
     public Map<Enum, Setting> curSettings = new TreeMap<>();
-    Map<Enum, Setting> tempCurSettings = new TreeMap<>();
+    Map<Enum, Setting> cancelSave = new TreeMap<>();
+    Map<Enum, Setting> peekSave = new TreeMap<>();
     /**
      * Map containing the help text associated with settings in the saveFile.
      */
@@ -72,7 +74,7 @@ public abstract class LSaveFile {
 	maps.add(defaultSettings);
 	maps.add(saveSettings);
 	maps.add(curSettings);
-	maps.add(tempCurSettings);
+	maps.add(peekSave);
     }
 
     public LSaveFile(File location) {
@@ -114,32 +116,36 @@ public abstract class LSaveFile {
 	if (f.exists()) {
 	    try {
 		BufferedReader input = new BufferedReader(new FileReader(f));
-		input.readLine();  //title
-		String inStr;
-		String settingTitle;
-		while (input.ready()) {
-		    inStr = input.readLine().trim();
-		    if (inStr.equals("")) {
-			continue;
-		    }
-		    settingTitle = inStr.substring(4, inStr.indexOf(" to "));
-		    inStr = inStr.substring(inStr.indexOf(" to ") + 4);
-		    for (Enum s : saveSettings.keySet()) {
-			if (saveSettings.containsKey(s)) {
-			    if (saveSettings.get(s).getTitle().equals(settingTitle)) {
-				// Multiline setting
-				if (saveSettings.get(s).getClass() == SaveStringSet.class) {
-				    int num = Integer.valueOf(inStr.trim());
-				    inStr = "";
-				    for (int i = 0; i < num; i++) {
-					inStr += input.readLine();
+		String version = input.readLine();  //title
+		if (version.contains("Version")) {
+		    String inStr;
+		    String settingTitle;
+		    while (input.ready()) {
+			inStr = input.readLine().trim();
+			if (inStr.equals("")) {
+			    continue;
+			}
+			settingTitle = inStr.substring(0, inStr.indexOf(": "));
+			inStr = inStr.substring(inStr.indexOf(": ") + 2);
+			for (Enum s : saveSettings.keySet()) {
+			    if (saveSettings.containsKey(s)) {
+				if (saveSettings.get(s).getTitle().equals(settingTitle)) {
+				    // Multiline setting
+				    if (saveSettings.get(s).getClass() == SaveStringSet.class) {
+					int num = Integer.valueOf(inStr.trim());
+					inStr = "";
+					for (int i = 0; i < num; i++) {
+					    inStr += input.readLine();
+					}
 				    }
+				    saveSettings.get(s).readSetting(inStr);
+				    curSettings.get(s).readSetting(inStr);
 				}
-				saveSettings.get(s).readSetting(inStr);
-				curSettings.get(s).readSetting(inStr);
 			    }
 			}
 		    }
+		} else {
+		    readInSettingsV1(input);
 		}
 
 	    } catch (Exception e) {
@@ -147,6 +153,35 @@ public abstract class LSaveFile {
 		initSettings();
 		initHelp();
 		initialized = true;
+	    }
+	}
+    }
+
+    void readInSettingsV1(BufferedReader input) throws IOException {
+	String inStr;
+	String settingTitle;
+	while (input.ready()) {
+	    inStr = input.readLine().trim();
+	    if (inStr.equals("")) {
+		continue;
+	    }
+	    settingTitle = inStr.substring(4, inStr.indexOf(" to "));
+	    inStr = inStr.substring(inStr.indexOf(" to ") + 4);
+	    for (Enum s : saveSettings.keySet()) {
+		if (saveSettings.containsKey(s)) {
+		    if (saveSettings.get(s).getTitle().equals(settingTitle)) {
+			// Multiline setting
+			if (saveSettings.get(s).getClass() == SaveStringSet.class) {
+			    int num = Integer.valueOf(inStr.trim());
+			    inStr = "";
+			    for (int i = 0; i < num; i++) {
+				inStr += input.readLine();
+			    }
+			}
+			saveSettings.get(s).readSetting(inStr);
+			curSettings.get(s).readSetting(inStr);
+		    }
+		}
 	    }
 	}
     }
@@ -168,7 +203,7 @@ public abstract class LSaveFile {
 
 	try {
 	    BufferedWriter output = new BufferedWriter(new FileWriter(f));
-	    output.write("Savefile used for the application.\n");
+	    output.write("### Savefile used for the application.  Version: 2\n");
 	    for (Enum s : curSettings.keySet()) {
 		if (!curSettings.get(s).get().equals("")) {
 		    curSettings.get(s).write(output);
@@ -192,11 +227,11 @@ public abstract class LSaveFile {
      * Adds a setting of type boolean.
      *
      * @param type Enum to be associated with.
-     * @param patchChanging
+     * @param extraFlags
      * @param b Default value to assign the setting.
      */
-    protected void Add(Enum type, Boolean b, boolean patchChanging) {
-	Add(type, new SaveBool(type.toString(), b, patchChanging));
+    protected void Add(Enum type, Boolean b, Boolean... extraFlags) {
+	Add(type, new SaveBool(type.toString(), b, extraFlags));
     }
 
     /**
@@ -204,21 +239,21 @@ public abstract class LSaveFile {
      *
      * @param type Enum to be associated with.
      * @param s Default value to assign the setting.
-     * @param patchChanging
+     * @param extraFlags
      */
-    protected void Add(Enum type, String s, boolean patchChanging) {
-	Add(type, new SaveString(type.toString(), s, patchChanging));
+    protected void Add(Enum type, String s, Boolean... extraFlags) {
+	Add(type, new SaveString(type.toString(), s, extraFlags));
     }
 
     /**
      * Adds a setting of type integer.
      *
      * @param type Enum to be associated with.
-     * @param patchChanging
+     * @param extraFlags
      * @param i Default value to assign the setting.
      */
-    protected void Add(Enum type, Integer i, boolean patchChanging) {
-	Add(type, new SaveInt(type.toString(), i, patchChanging));
+    protected void Add(Enum type, Integer i, Boolean... extraFlags) {
+	Add(type, new SaveInt(type.toString(), i, extraFlags));
     }
 
     /**
@@ -226,10 +261,10 @@ public abstract class LSaveFile {
      *
      * @param type Enum to be associated with.
      * @param e
-     * @param patchChanging
+     * @param extraFlags
      */
-    protected void Add(Enum type, Enum e, boolean patchChanging) {
-	Add(type, new SaveEnum(type.toString(), e, patchChanging));
+    protected void Add(Enum type, Enum e, Boolean... extraFlags) {
+	Add(type, new SaveEnum(type.toString(), e, extraFlags));
     }
 
     /**
@@ -237,10 +272,10 @@ public abstract class LSaveFile {
      *
      * @param type Enum to be associated with.
      * @param strs
-     * @param patchChanging
+     * @param extraFlags
      */
-    protected void Add(Enum type, Set<String> strs, boolean patchChanging) {
-	Add(type, new SaveStringSet(type.toString(), strs, patchChanging));
+    protected void Add(Enum type, Set<String> strs, Boolean... extraFlags) {
+	Add(type, new SaveStringSet(type.toString(), strs, extraFlags));
     }
 
     /**
@@ -248,10 +283,21 @@ public abstract class LSaveFile {
      *
      * @param type Enum to be associated with.
      * @param f Default value to assign the setting.
-     * @param patchChanging
+     * @param extraFlags
      */
-    protected void Add(Enum type, Float f, boolean patchChanging) {
-	Add(type, new SaveFloat(type.toString(), f, patchChanging));
+    protected void Add(Enum type, Float f, Boolean... extraFlags) {
+	Add(type, new SaveFloat(type.toString(), f, extraFlags));
+    }
+
+    /**
+     * Adds a setting of type Color.
+     *
+     * @param type Enum to be associated with.
+     * @param f Default value to assign the setting.
+     * @param extraFlags
+     */
+    protected void Add(Enum type, Color c, Boolean... extraFlags) {
+	Add(type, new SaveColor(type.toString(), c, extraFlags));
     }
 
     /**
@@ -271,10 +317,14 @@ public abstract class LSaveFile {
     /**
      * Makes the savefile reacquire the settings from any tied GUI components.
      */
-    public void update() {
+    public void updateCurToGUI() {
 	for (Enum s : curSettings.keySet()) {
 	    curSettings.get(s).set();
 	}
+    }
+
+    public void updateGUItoCur() {
+	revertTo(curSettings);
     }
 
     void set(Enum setting, Object in) {
@@ -304,21 +354,38 @@ public abstract class LSaveFile {
     public void clearPeek() {
 	for (Setting s : curSettings.values()) {
 	    if (s.tie != null) {
-		s.tie.revertTo(tempCurSettings);
+		s.tie.revertTo(peekSave);
 		s.tie.clearHighlight();
 	    }
 	}
-	update();
+	updateCurToGUI();
     }
 
     void peek(Map<Enum, Setting> in) {
-	copyTo(curSettings, tempCurSettings);
+	copyTo(curSettings, peekSave);
 	for (Setting s : curSettings.values()) {
 	    if (s.tie != null && !s.tie.revertTo(in)) {
 		s.tie.highlightChanged();
 	    }
 	}
-	update();
+	updateCurToGUI();
+    }
+
+    public void saveToCancelSave() {
+	copyTo(curSettings, cancelSave);
+    }
+
+    public void revertToCancel() {
+	copyTo(cancelSave, curSettings);
+	updateGUItoCur();
+    }
+
+    public void revertTo(Map<Enum, Setting> in) {
+	for (Setting s : curSettings.values()) {
+	    if (s.tie != null) {
+		s.tie.revertTo(in);
+	    }
+	}
     }
 
     /**
@@ -359,21 +426,31 @@ public abstract class LSaveFile {
 
     void revertTo(Map<Enum, Setting> in, LUserSetting s) {
 	s.revertTo(in);
-	copyTo(in, tempCurSettings);
+	copyTo(in, peekSave);
     }
 
-    /**
-     *
-     * @return
-     */
-    public boolean needsPatch() {
+    public boolean checkFlagAnd(int index) {
 	ArrayList<Setting> modified = getModifiedSettings();
 	for (Setting s : modified) {
-	    if (s.patchChanging) {
+	    if (!s.extraFlags[index]) {
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    public boolean checkFlagOr(int index) {
+	ArrayList<Setting> modified = getModifiedSettings();
+	for (Setting s : modified) {
+	    if (s.extraFlags[index]) {
 		return true;
 	    }
 	}
 	return false;
+    }
+
+    public boolean checkFlag(Enum s, int index) {
+	return curSettings.get(s).extraFlags[index];
     }
 
     /**
@@ -429,6 +506,14 @@ public abstract class LSaveFile {
     public Boolean getBool(Enum s) {
 	return curSettings.get(s).getBool();
     }
+    
+    public Color getColor(Enum s) {
+	return curSettings.get(s).getColor();
+    }
+    
+    public float getFloat(Enum s) {
+	return curSettings.get(s).getFloat();
+    }
 
     /**
      * Returns the value of the setting, and assumes it's a boolean value.
@@ -446,6 +531,10 @@ public abstract class LSaveFile {
 
     public void setInt(Enum e, int i) {
 	curSettings.get(e).setTo(i);
+    }
+    
+    public void setColor(Enum e, Color c) {
+	curSettings.get(e).setTo(c);
     }
 
     public void setBool(Enum e, boolean b) {

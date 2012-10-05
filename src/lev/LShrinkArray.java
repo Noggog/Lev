@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
 
 /**
  * A special array with artificial min/max bounds. This allows smaller parts of
@@ -20,7 +18,7 @@ import java.util.zip.Inflater;
  *
  * @author Justin Swanson
  */
-public class LShrinkArray extends LStream {
+public class LShrinkArray extends LChannel {
 
     private ByteBuffer buffer;
 
@@ -50,7 +48,7 @@ public class LShrinkArray extends LStream {
      * @param rhs LStream to copy bounds from.
      * @param high New upper limit to give to the ShrinkArray.
      */
-    public LShrinkArray(final LStream rhs, final int high) {
+    public LShrinkArray(final LChannel rhs, final int high) throws IOException {
 	this(rhs);
 	buffer.limit(high);
     }
@@ -61,7 +59,7 @@ public class LShrinkArray extends LStream {
      *
      * @param rhs LStream to copy bounds from.
      */
-    public LShrinkArray(final LStream rhs) {
+    public LShrinkArray(final LChannel rhs) throws IOException {
 	if (rhs.getClass() == getClass()) {
 	    LShrinkArray rhss = (LShrinkArray) rhs;
 	    buffer = rhss.buffer.slice();
@@ -157,5 +155,25 @@ public class LShrinkArray extends LStream {
 	byte[] bytes = new byte[amount];
 	buffer.get(bytes);
 	return bytes;
+    }
+
+    @Override
+    public int read() throws IOException {
+	throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void pos(long pos) throws IOException {
+	throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public long pos() throws IOException {
+	throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void close() throws IOException {
+	buffer.clear();
     }
 }

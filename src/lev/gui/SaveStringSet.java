@@ -20,10 +20,10 @@ public class SaveStringSet extends Setting<Set<String>> {
      *
      * @param title_
      * @param data_
-     * @param patchChanging
+     * @param extraFlags
      */
-    public SaveStringSet(String title_, Set<String> data_, Boolean patchChanging) {
-	super(title_, data_, patchChanging);
+    public SaveStringSet(String title_, Set<String> data_, Boolean[] extraFlags) {
+	super(title_, data_, extraFlags);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SaveStringSet extends Setting<Set<String>> {
 
     @Override
     public Setting<Set<String>> copyOf() {
-	SaveStringSet out = new SaveStringSet(title, data, patchChanging);
+	SaveStringSet out = new SaveStringSet(title, data, extraFlags);
 	out.data = new HashSet<>(data);
 	out.tie = tie;
 	return out;

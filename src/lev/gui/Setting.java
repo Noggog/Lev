@@ -4,6 +4,7 @@
  */
 package lev.gui;
 
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.util.Objects;
 import java.util.Set;
@@ -18,7 +19,7 @@ public abstract class Setting<T> {
     protected T data;
     protected String title;
     protected LUserSetting<T> tie;
-    protected Boolean patchChanging;
+    protected Boolean[] extraFlags;
 
     /**
      *
@@ -26,10 +27,14 @@ public abstract class Setting<T> {
      * @param data_
      * @param patchChanging
      */
-    public Setting(String title_, T data_, Boolean patchChanging) {
+    public Setting(String title_, T data_, Boolean[] extraFlags) {
+	this(title_, extraFlags);
+	setTo(data_);
+    }
+
+    public Setting(String title_, Boolean[] extraFlags) {
         title = title_;
-        data = data_;
-        this.patchChanging = patchChanging;
+        this.extraFlags = extraFlags;
     }
 
     /**
@@ -46,6 +51,14 @@ public abstract class Setting<T> {
      */
     public Boolean getBool() {
         return (Boolean)data;
+    }
+    
+    public Color getColor() {
+	return (Color) data;
+    }
+    
+    public Float getFloat() {
+	return (Float) data;
     }
 
     /**
@@ -101,7 +114,7 @@ public abstract class Setting<T> {
      *
      * @param input
      */
-    public void setTo(T input) {
+    public final void setTo(T input) {
         data = input;
     }
 
@@ -111,7 +124,7 @@ public abstract class Setting<T> {
      * @throws java.io.IOException
      */
     public void write(BufferedWriter b) throws java.io.IOException {
-        b.write("set " + title + " to " + toString() + "\n");
+        b.write(title + ": " + toString() + "\n");
     }
 
     /**
@@ -160,7 +173,7 @@ public abstract class Setting<T> {
 	if (!Objects.equals(this.title, other.title)) {
 	    return false;
 	}
-	if (!Objects.equals(this.patchChanging, other.patchChanging)) {
+	if (!Objects.equals(this.extraFlags, other.extraFlags)) {
 	    return false;
 	}
 	return true;
@@ -171,7 +184,7 @@ public abstract class Setting<T> {
 	int hash = 5;
 	hash = 73 * hash + Objects.hashCode(this.data);
 	hash = 73 * hash + Objects.hashCode(this.title);
-	hash = 73 * hash + Objects.hashCode(this.patchChanging);
+	hash = 73 * hash + Objects.hashCode(this.extraFlags);
 	return hash;
     }
 

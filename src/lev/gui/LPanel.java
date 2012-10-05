@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 package lev.gui;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Rectangle;
+
+import java.awt.*;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
@@ -16,20 +16,33 @@ import javax.swing.Scrollable;
 public class LPanel extends JPanel implements Scrollable {
 
     /**
+     * Reference to the position of the last-added setting or component added
+     * using Add() or AddSetting()
+     */
+    protected Point last;
+    /**
+     * Spacing to be used between settings
+     */
+    protected int spacing = 12;
+    protected Align align = Align.Left;
+
+    /**
      *
      */
-    public LPanel () {
+    public LPanel() {
 	setLayout(null);
-	super.setSize(1,1);
+	super.setSize(1, 1);
 	setOpaque(false);
+	setBorder(BorderFactory.createEmptyBorder());
 	super.setVisible(true);
+	last = new Point(spacing, 0);
     }
 
     /**
      *
      * @param r
      */
-    public LPanel (Rectangle r) {
+    public LPanel(Rectangle r) {
 	this();
 	setBounds(r);
     }
@@ -39,9 +52,9 @@ public class LPanel extends JPanel implements Scrollable {
      * @param x
      * @param y
      */
-    public LPanel (int x, int y){
+    public LPanel(int x, int y) {
 	this();
-	setLocation(x,y);
+	setLocation(x, y);
     }
 
     /**
@@ -55,30 +68,99 @@ public class LPanel extends JPanel implements Scrollable {
 
     @Override
     public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 20;
+	return 20;
     }
 
     @Override
     public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 100;
+	return 100;
     }
 
     @Override
     public boolean getScrollableTracksViewportWidth() {
-        return false;
+	return false;
     }
 
     @Override
     public boolean getScrollableTracksViewportHeight() {
-        return false;
+	return false;
     }
 
     @Override
     public Dimension getPreferredScrollableViewportSize() {
-        return new Dimension(300,300);
+	return new Dimension(300, 300);
     }
 
-    public void remeasure (Dimension size) {
+    public void remeasure(Dimension size) {
 	setSize(size);
+    }
+
+    protected static AlphaComposite makeComposite(float alpha) {
+	return (AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    }
+
+    /**
+     * Sets the placement relative to the last component added.
+     *
+     * @param c
+     * @return The point the component was placed
+     */
+    public Point setPlacement(Component c) {
+	return setPlacement(c, last.x, last.y);
+    }
+
+    /**
+     * Sets the placement to (x,y)
+     *
+     * @param c
+     * @param x
+     * @param y
+     * @return The point the component was placed
+     */
+    public Point setPlacement(Component c, int x, int y) {
+	switch (align) {
+	    case Right:
+		c.setLocation(x - c.getWidth(), y + spacing);
+		break;
+	    case Left:
+		c.setLocation(x, y + spacing);
+		break;
+	    case Center:
+		if (c instanceof LComponent) {
+		    LComponent lc = (LComponent) c;
+		    c.setLocation(x - lc.getCenter(), y + spacing);
+		} else {
+		    c.setLocation(x - c.getWidth() / 2, y + spacing);
+		}
+		break;
+	}
+	updateLast(c);
+	return last;
+    }
+
+    public void place(Component c) {
+	setPlacement(c);
+	Add(c);
+    }
+
+    public void align(Align align) {
+	this.align = align;
+    }
+
+    /**
+     * Updates last GUI component tracker to be focused on c. For use with
+     * setPlacement()
+     *
+     * @param c Component to set as the last GUI component placed.
+     */
+    public void updateLast(Component c) {
+	last = new Point(last.x, c.getY() + c.getHeight());
+    }
+
+    public enum Align {
+
+	Left,
+	Center,
+	Right;
     }
 }

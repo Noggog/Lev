@@ -30,11 +30,19 @@ public class LImages {
      * @param leftArrow
      * @return
      */
-    public static BufferedImage arrow(boolean leftArrow) {
+    public static BufferedImage arrow(boolean leftArrow, boolean dark) {
 	if (leftArrow) {
-	    return create(LImages.class.getResource("ArrowLeft.png"));
+	    if (dark) {
+		return create(LImages.class.getResource("ArrowLeftDark.png"));
+	    } else {
+		return create(LImages.class.getResource("ArrowLeft.png"));
+	    }
 	} else {
-	    return create(LImages.class.getResource("ArrowRight.png"));
+	    if (dark) {
+		return create(LImages.class.getResource("ArrowRightDark.png"));
+	    } else {
+		return create(LImages.class.getResource("ArrowRight.png"));
+	    }
 	}
     }
 

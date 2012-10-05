@@ -49,6 +49,11 @@ public class LCheckBox extends LUserSetting<Boolean> {
 	setVisible(true);
 	add(cbox);
     }
+    
+    @Override
+    public int getCenter() {
+	return titleLabel.getWidth() + 3;
+    }
 
     /**
      *

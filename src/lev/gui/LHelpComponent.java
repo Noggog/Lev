@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * A GUI component that updates a help panel with text.
+ *
  * @author Justin Swanson
  */
 public abstract class LHelpComponent extends LComponent {
@@ -22,8 +23,9 @@ public abstract class LHelpComponent extends LComponent {
      */
     public LHelpPanel help = null;
     String helpPrefix = "";
-    String helpInfo = "";
     boolean followPos = true;
+    public Enum saveTie;
+    public LSaveFile save;
     /**
      * The title to put at the top of the help panel.
      */
@@ -44,6 +46,7 @@ public abstract class LHelpComponent extends LComponent {
     /**
      * Adds a help handler to each GUI component that should trigger the help
      * panel to update.
+     *
      * @param hoverListener
      */
     protected abstract void addHelpHandler(boolean hoverListener);
@@ -54,7 +57,7 @@ public abstract class LHelpComponent extends LComponent {
     public void updateHelp() {
 	if (help != null) {
 	    help.setTitle(helpPrefix + title);
-	    help.setContent(helpInfo);
+	    help.setContent(getHelp());
 	    if (followPos) {
 		help.focusOn(this, helpYoffset);
 	    } else {
@@ -72,7 +75,6 @@ public abstract class LHelpComponent extends LComponent {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 	    SwingUtilities.invokeLater(new Runnable() {
-
 		@Override
 		public void run() {
 		    updateHelp();
@@ -90,7 +92,6 @@ public abstract class LHelpComponent extends LComponent {
 	@Override
 	public void focusGained(FocusEvent event) {
 	    SwingUtilities.invokeLater(new Runnable() {
-
 		@Override
 		public void run() {
 		    updateHelp();
@@ -145,7 +146,6 @@ public abstract class LHelpComponent extends LComponent {
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 	    SwingUtilities.invokeLater(new Runnable() {
-
 		@Override
 		public void run() {
 		    updateHelp();
@@ -159,7 +159,6 @@ public abstract class LHelpComponent extends LComponent {
 	@Override
 	public void stateChanged(ChangeEvent e) {
 	    SwingUtilities.invokeLater(new Runnable() {
-
 		@Override
 		public void run() {
 		    updateHelp();
@@ -170,6 +169,7 @@ public abstract class LHelpComponent extends LComponent {
 
     /**
      * Adds a prefix to the title.
+     *
      * @param input
      */
     public void addHelpPrefix(String input) {
@@ -177,28 +177,9 @@ public abstract class LHelpComponent extends LComponent {
     }
 
     /**
-     * Sets the string to be displayed in the help panel.
-     * @param info
-     */
-    public void setHelpInfo(String info) {
-	helpInfo = info;
-    }
-
-    /**
-     * Sets the help info string to be the string associated with this setting of the savefile.
-     * @param setting
-     * @param save
-     */
-    public void setHelpInfo(Enum setting, LSaveFile save) {
-	if (save.helpInfo.get(setting) != null) {
-	    setHelpInfo((String) save.helpInfo.get(setting));
-	} else {
-	    setHelpInfo("...");
-	}
-    }
-
-    /**
-     * Sets the target help panel, and sets the help info to the setting's helpInfo in the savefile.
+     * Sets the target help panel, and sets the help info to the setting's
+     * helpInfo in the savefile.
+     *
      * @param setting
      * @param save
      * @param help_
@@ -206,15 +187,28 @@ public abstract class LHelpComponent extends LComponent {
      */
     public void linkTo(Enum setting, LSaveFile save, LHelpPanel help_, boolean hoverListener) {
 	help = help_;
-	setHelpInfo(setting, save);
-	addHelpHandler(hoverListener);
+	this.save = save;
+	this.saveTie = setting;
+	if (hasHelp()) {
+	    addHelpHandler(hoverListener);
+	}
+    }
+
+    public boolean hasHelp() {
+	return getHelp() != null;
+    }
+
+    public String getHelp() {
+	return save.helpInfo.get(saveTie);
     }
 
     /**
-     * Sets whether the helpPanel should vertically align with this component when updating.
+     * Sets whether the helpPanel should vertically align with this component
+     * when updating.
+     *
      * @param on
      */
-    public void setFollowPosition (boolean on) {
+    public void setFollowPosition(boolean on) {
 	followPos = on;
     }
 
@@ -222,7 +216,7 @@ public abstract class LHelpComponent extends LComponent {
      *
      * @return
      */
-    public boolean isFollowingPosition () {
+    public boolean isFollowingPosition() {
 	return followPos;
     }
 }

@@ -4,6 +4,7 @@
  */
 package lev.gui;
 
+import java.awt.Color;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 
@@ -24,5 +25,9 @@ public class LHTMLPane extends LEditorPane {
 
     public StyleSheet getStyleSheet() {
 	return getDocument().getStyleSheet();
+    }
+
+    public void transparentBackground() {
+	pane.setBackground(new Color(255, 255, 255, 0)) ;
     }
 }

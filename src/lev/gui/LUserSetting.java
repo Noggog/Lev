@@ -26,14 +26,6 @@ public abstract class LUserSetting<T> extends LHelpComponent {
     /**
      *
      */
-    public Enum saveTie;
-    /**
-     *
-     */
-    public LSaveFile save;
-    /**
-     *
-     */
     public LLabel titleLabel;
 
     /**

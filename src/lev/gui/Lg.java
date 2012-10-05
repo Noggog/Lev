@@ -5,6 +5,7 @@
 package lev.gui;
 
 import java.awt.AlphaComposite;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -95,5 +96,12 @@ public class Lg {
 	double yMod = 1.0 * minY / y;
 
         return new Dimension((int) x, (int) y);
+    }
+
+    static public int taller (Component a, Component b) {
+	if (a.getHeight() > b.getHeight()) {
+	    return a.getHeight();
+	}
+	return b.getHeight();
     }
 }

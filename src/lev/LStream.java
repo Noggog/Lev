@@ -14,8 +14,6 @@ import java.util.zip.Inflater;
  */
 public abstract class LStream {
 
-    static Inflater decompresser = new Inflater();
-
     /**
      *
      * @return True if Stream has no more bytes.
@@ -48,7 +46,6 @@ public abstract class LStream {
     public int[] getAllInts()  {
         return getInts(0, available());
     }
-
 
     /**
      * Returns the remaining contents as an int array, and adjusts bounds
@@ -274,6 +271,7 @@ public abstract class LStream {
         byte[] compressedByteData = getAllBytes();
 
         //Uncompress
+	Inflater decompresser = LGlobal.getInflater();
         decompresser.setInput(compressedByteData, 0, available());
         byte[] uncompressedByteData = new byte[uncompressedSize];
         decompresser.inflate(uncompressedByteData);

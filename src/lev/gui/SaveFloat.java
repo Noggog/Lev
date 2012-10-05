@@ -10,8 +10,8 @@ package lev.gui;
  */
 class SaveFloat extends Setting<Float> {
 
-    public SaveFloat(String title_, Float data_, Boolean patchChanging) {
-        super(title_, data_, patchChanging);
+    public SaveFloat(String title_, Float data_, Boolean[] extraFlags) {
+        super(title_, data_, extraFlags);
     }
 
     @Override
@@ -26,7 +26,7 @@ class SaveFloat extends Setting<Float> {
 
     @Override
     public Setting<Float> copyOf() {
-        SaveFloat out = new SaveFloat(title, data, patchChanging);
+        SaveFloat out = new SaveFloat(title, data, extraFlags);
         out.tie = tie;
         return out;
     }

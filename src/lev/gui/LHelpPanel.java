@@ -22,10 +22,11 @@ public class LHelpPanel extends LPanel {
     Image arrow;
     int arrowx;
     int y;
+    int textOffset = 0;
     LPanel bottomArea;
     Boolean textVisible = true;
     Boolean hideArrow = false;
-    static int spacing = 75;
+    boolean following = true;
 
     /**
      *
@@ -36,17 +37,20 @@ public class LHelpPanel extends LPanel {
      * @param leftArrow
      * @param arrowX
      */
-    public LHelpPanel(Rectangle bounds, Font titleFont, Color titleC, Color contentC, boolean leftArrow, int arrowX) {
+    public LHelpPanel(Rectangle bounds, Font titleFont, Color titleC, Color contentC, Image arrow, int arrowX) {
 	y = - 100;
 	arrowx = arrowX;
-	arrow = (new ImageIcon(LImages.arrow(leftArrow))).getImage();
+	this.arrow = arrow;
+
+	setBounds(bounds);
 
 	setting = new LLabel("  ", titleFont, titleC);
-	setBounds(bounds);
+	setting.setLocation(17, 0);
 
 	help = new LTextPane(new Dimension(getWidth() - 35, getHeight()), contentC);
 	help.addScroll();
 	help.setEditable(false);
+	help.setLocation(35, 0);
 	add(setting);
 	add(help);
 	setting.setVisible(textVisible);
@@ -79,7 +83,7 @@ public class LHelpPanel extends LPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-	if (textVisible && !hideArrow) {
+	if (textVisible && !hideArrow && following && arrow != null) {
 	    g.drawImage(arrow, arrowx, y - arrow.getHeight(null) / 2, null);
 	}
     }
@@ -100,6 +104,10 @@ public class LHelpPanel extends LPanel {
 	setting.setFont(f);
     }
 
+    public void setDefaultY(int y) {
+	spacing = y;
+    }
+
     /**
      *
      * @param title_
@@ -109,18 +117,27 @@ public class LHelpPanel extends LPanel {
 	setting.setSize(setting.getPreferredSize());
     }
 
+    public void setTitleOffset(int y) {
+	textOffset = y;
+    }
+
+    public void setXOffsets(int title, int helpText) {
+	setting.setLocation(title, setting.getY());
+	help.setLocation(helpText, help.getY());
+    }
+
     /**
      *
      * @param y_
      */
     public void setY(int y_) {
-	if (y_ == -1) {
+	if (y_ == -1 || !following) {
 	    y = spacing;
 	} else {
 	    y = y_;
 	}
-	setting.setLocation(17, y - setting.getHeight() / 2);
-	help.setLocation(35, y + setting.getHeight() / 2);
+	setting.setLocation(setting.getX(), y - setting.getHeight() / 2 + textOffset);
+	help.setLocation(help.getX(), y + setting.getHeight() / 2 + textOffset);
 	evalPositioning();
 	repaint();
     }

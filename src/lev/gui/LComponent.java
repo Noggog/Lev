@@ -5,14 +5,14 @@
 package lev.gui;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
-import javax.swing.JComponent;
 
 /**
  *
  * @author Justin Swanson
  */
-public class LComponent extends JComponent {
+public class LComponent extends Container {
 
     /**
      *
@@ -90,5 +90,9 @@ public class LComponent extends JComponent {
      */
     public int getRight() {
 	return getX() + getWidth();
+    }
+    
+    public int getCenter() {
+	return getWidth() / 2;
     }
 }

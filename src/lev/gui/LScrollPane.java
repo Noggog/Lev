@@ -5,6 +5,7 @@
 package lev.gui;
 
 import java.awt.Component;
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 
 /**
@@ -19,6 +20,9 @@ public class LScrollPane extends JScrollPane {
      */
     public LScrollPane (Component c) {
 	super(c);
+	setBorder(BorderFactory.createEmptyBorder());
+	setViewportBorder(BorderFactory.createEmptyBorder());
+	scrollToTop();
     }
 
     @Override
@@ -27,4 +31,15 @@ public class LScrollPane extends JScrollPane {
 	getViewport().setOpaque(false);
     }
 
+    public final void scrollToTop() {
+	this.getVerticalScrollBar().setValue(0);
+    }
+    
+    @Override
+    public void setVisible(boolean on) {
+	super.setVisible(on);
+	if (on) {
+	    scrollToTop();
+	}
+    }
 }

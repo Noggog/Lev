@@ -58,7 +58,6 @@ public class LCheckBoxConfig extends LUserSetting {
         help = help_;
         save = save_;
         saveTie = setting;
-        setHelpInfo(saveTie, save);
 
         button = new LButton(buttonText);
         button.addActionListener(new UpdateHelpActionHandler());

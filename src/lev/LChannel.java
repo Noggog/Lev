@@ -83,7 +83,16 @@ public abstract class LChannel {
 	jumpBack(skip + read);
 	return out;
     }
-
+    
+    /**
+     * Returns the remaining contents as a byte array, and adjusts bounds
+     * to be empty.
+     * @return The remaining contents as a byte array.
+     */
+    public byte[] extractAllBytes() throws IOException  {
+        return extract(available());
+    }
+    
     /**
      * Reads in characters until a null byte (0) is read, and converts them to a
      * string.
@@ -281,5 +290,9 @@ public abstract class LChannel {
      * @return
      * @throws IOException
      */
-    public abstract int available() throws IOException;
+    public abstract int available() throws IOException ;
+
+    public Boolean isDone() throws IOException {
+	return available() == 0;
+    }
 }

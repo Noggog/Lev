@@ -28,7 +28,7 @@ public class LByteChannel extends LChannel {
      * @param input 
      * @throws FileNotFoundException
      */
-    public LByteChannel(final byte[] input) throws FileNotFoundException {
+    public LByteChannel(final byte[] input) {
 	openStream(input);
     }
 
@@ -47,7 +47,7 @@ public class LByteChannel extends LChannel {
      * @param in
      * @throws IOException
      */
-    public final void openStream(LShrinkArray in) throws IOException {
+    public final void openStream(LShrinkArray in) {
 	openStream(in.extractAllBytes());
     }
 
@@ -57,7 +57,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public int read() throws IOException {
+    public int read() {
 	return Ln.bToUInt(input[pos++]);
     }
 
@@ -67,7 +67,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public void pos(long pos) throws IOException {
+    public void pos(long pos) {
 	this.pos = (int) pos;
     }
 
@@ -77,7 +77,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public long pos() throws IOException {
+    public long pos() {
 	return pos;
     }
 
@@ -86,7 +86,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public void close() throws IOException {
+    public void close() {
 	input = null;
     }
 
@@ -96,7 +96,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public int available() throws IOException {
+    public int available() {
 	return end - pos;
     }
 
@@ -105,12 +105,13 @@ public class LByteChannel extends LChannel {
      * @return
      * @throws IOException
      */
-    public Boolean isDone() throws IOException {
+    @Override
+    public Boolean isDone() {
 	return pos == end;
     }
 
     @Override
-    public void skip(int skip) throws IOException {
+    public void skip(int skip) {
 	pos += skip;
     }
 
@@ -120,7 +121,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public void jumpBack(int amount) throws IOException {
+    public void jumpBack(int amount) {
 	skip(-amount);
     }
 
@@ -131,7 +132,7 @@ public class LByteChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public byte[] extract(int read) throws IOException {
+    public byte[] extract(int read) {
 	byte[] out = new byte[read];
 	for (int i = 0 ; i < read ; i++) {
 	    out[i] = input[pos + i];

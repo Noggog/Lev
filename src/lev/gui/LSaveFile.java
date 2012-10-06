@@ -319,8 +319,12 @@ public abstract class LSaveFile {
      */
     public void updateCurToGUI() {
 	for (Enum s : curSettings.keySet()) {
-	    curSettings.get(s).set();
+	    updateCurToGUI(s);
 	}
+    }
+
+    public void updateCurToGUI(Enum s) {
+	curSettings.get(s).set();
     }
 
     public void updateGUItoCur() {
@@ -506,11 +510,11 @@ public abstract class LSaveFile {
     public Boolean getBool(Enum s) {
 	return curSettings.get(s).getBool();
     }
-    
+
     public Color getColor(Enum s) {
 	return curSettings.get(s).getColor();
     }
-    
+
     public float getFloat(Enum s) {
 	return curSettings.get(s).getFloat();
     }
@@ -532,7 +536,7 @@ public abstract class LSaveFile {
     public void setInt(Enum e, int i) {
 	curSettings.get(e).setTo(i);
     }
-    
+
     public void setColor(Enum e, Color c) {
 	curSettings.get(e).setTo(c);
     }

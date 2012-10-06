@@ -42,24 +42,24 @@ public class LShrinkArray extends LChannel {
 
     /**
      * Creates a new ShrinkArray based on the same underlying array, starting at
-     * the same beginning index of the rhs LStream, but with an upper limit
+     * the same beginning index of the rhs LChannel, but with an upper limit
      * of high.
      *
-     * @param rhs LStream to copy bounds from.
+     * @param rhs LChannel to copy bounds from.
      * @param high New upper limit to give to the ShrinkArray.
      */
-    public LShrinkArray(final LChannel rhs, final int high) throws IOException {
+    public LShrinkArray(final LChannel rhs, final int high) {
 	this(rhs);
 	buffer.limit(high);
     }
 
     /**
      * Creates a new ShrinkArray based on the same underlying array, starting at
-     * the same bounds of the rhs LStream.
+     * the same bounds of the rhs LChannel.
      *
-     * @param rhs LStream to copy bounds from.
+     * @param rhs LChannel to copy bounds from.
      */
-    public LShrinkArray(final LChannel rhs) throws IOException {
+    public LShrinkArray(final LChannel rhs) {
 	if (rhs.getClass() == getClass()) {
 	    LShrinkArray rhss = (LShrinkArray) rhs;
 	    buffer = rhss.buffer.slice();
@@ -158,22 +158,17 @@ public class LShrinkArray extends LChannel {
     }
 
     @Override
-    public int read() throws IOException {
+    public void pos(long pos) {
 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void pos(long pos) throws IOException {
+    public long pos() {
 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public long pos() throws IOException {
-	throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void close() throws IOException {
+    public void close() {
 	buffer.clear();
     }
 }

@@ -17,7 +17,6 @@ import javax.swing.JColorChooser;
  */
 public class LColorSetting extends LUserSetting<Color> {
 
-    boolean highlight = false;
     Rectangle box = new Rectangle(0, 0, 12, 12);
     Rectangle boxOutline;
     Color color;
@@ -55,6 +54,7 @@ public class LColorSetting extends LUserSetting<Color> {
 	if (isTied()) {
 	    Color cur = color;
 	    color = m.get(saveTie).getColor();
+	    repaint();
 	    if (cur != color) {
 		return false;
 	    }
@@ -69,12 +69,10 @@ public class LColorSetting extends LUserSetting<Color> {
 
     @Override
     public void highlightChanged() {
-	highlight = true;
     }
 
     @Override
     public void clearHighlight() {
-	highlight = false;
     }
 
     final void setOutline(boolean small) {
@@ -89,7 +87,7 @@ public class LColorSetting extends LUserSetting<Color> {
 	boxOutline.width = box.width + size * 2;
 	boxOutline.height = boxOutline.width;
     }
-    
+
     @Override
     public int getCenter() {
 	return titleLabel.getRight() + 3;
@@ -109,7 +107,7 @@ public class LColorSetting extends LUserSetting<Color> {
 	    update();
 	}
     }
-    
+
     public void addActionListener(Runnable r) {
 	actionListeners.add(r);
     }

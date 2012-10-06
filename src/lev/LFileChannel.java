@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A FileChannel setup that supports easy extraction/getting of information.
@@ -29,7 +31,7 @@ public class LFileChannel extends LChannel {
      * @param path Path to open a channel to.
      * @throws IOException
      */
-    public LFileChannel(final String path) throws IOException {
+    public LFileChannel(final String path) {
 	openFile(path);
     }
 
@@ -38,7 +40,7 @@ public class LFileChannel extends LChannel {
      * @param f File to open a channel to.
      * @throws IOException
      */
-    public LFileChannel(final File f) throws IOException {
+    public LFileChannel(final File f) {
 	openFile(f);
     }
 
@@ -48,11 +50,11 @@ public class LFileChannel extends LChannel {
      * @param allocation
      * @throws IOException
      */
-    public LFileChannel(LFileChannel rhs, long allocation) throws IOException {
+    public LFileChannel(LFileChannel rhs, long allocation) {
 	LFileChannel fc = (LFileChannel) rhs;
 	iStream = fc.iStream;
 	iChannel = fc.iChannel;
-	end = iChannel.position() + allocation;
+	end = pos() + allocation;
     }
 
     /**
@@ -60,10 +62,14 @@ public class LFileChannel extends LChannel {
      * @param path Path to open a channel to.
      * @throws IOException 
      */
-    final public void openFile(final String path) throws IOException {
-	iStream = new FileInputStream(path);
-	iChannel = iStream.getChannel();
-	end = iChannel.size();
+    final public void openFile(final String path) {
+	try {
+	    iStream = new FileInputStream(path);
+	    iChannel = iStream.getChannel();
+	    end = iChannel.size();
+	} catch (IOException ex) {
+	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 
     /**
@@ -71,7 +77,7 @@ public class LFileChannel extends LChannel {
      * @param f File to open a channel to.
      * @throws IOException
      */
-    final public void openFile(final File f) throws IOException {
+    final public void openFile(final File f) {
 	openFile(f.getPath());
     }
 
@@ -82,8 +88,13 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public int read() throws IOException {
-	return iStream.read();
+    final public int read(){
+	try {
+	    return iStream.read();
+	} catch (IOException ex) {
+	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return -1;
     }
 
     /**
@@ -94,10 +105,14 @@ public class LFileChannel extends LChannel {
      * @return ByteBuffer containing read bytes.
      * @throws IOException
      */
-    final public ByteBuffer extractByteBuffer(int skip, int read) throws IOException {
+    final public ByteBuffer extractByteBuffer(int skip, int read) {
 	super.skip(skip);
 	ByteBuffer buf = ByteBuffer.allocate(read);
-	iChannel.read(buf);
+	try {
+	    iChannel.read(buf);
+	} catch (IOException ex) {
+	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	}
 	buf.flip();
 	return buf;
     }
@@ -108,8 +123,12 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public void pos(long pos) throws IOException {
-	iChannel.position(pos);
+    final public void pos(long pos) {
+	try {
+	    iChannel.position(pos);
+	} catch (IOException ex) {
+	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 
     /**
@@ -118,8 +137,13 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public long pos() throws IOException {
-	return iChannel.position();
+    final public long pos() {
+	try {
+	    return iChannel.position();
+	} catch (IOException ex) {
+	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return -1;
     }
 
     /**
@@ -128,10 +152,14 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public void close() throws IOException {
+    final public void close() {
 	if (iStream != null) {
-	    iStream.close();
-	    iChannel.close();
+	    try {
+		iStream.close();
+		iChannel.close();
+	    } catch (IOException ex) {
+		Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    }
 	}
     }
 
@@ -141,8 +169,8 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public int available() throws IOException {
-	return (int) (end - iChannel.position());
+    final public int available() {
+	return (int) (end - pos());
     }
 
     /**
@@ -150,8 +178,9 @@ public class LFileChannel extends LChannel {
      * @return
      * @throws IOException
      */
-    public Boolean isDone() throws IOException {
-	return iChannel.position() == end;
+    @Override
+    public Boolean isDone() {
+	return pos() == end;
     }
 
     /**
@@ -161,17 +190,21 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    public byte[] extract(int amount) throws IOException {
+    public byte[] extract(int amount) {
 	ByteBuffer allocate = ByteBuffer.allocate(amount);
-	iChannel.read(allocate);
+	try {
+	    iChannel.read(allocate);
+	} catch (IOException ex) {
+	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	}
 	return allocate.array();
     }
 
     @Override
-    public byte[] extractUntil(int delimiter) throws IOException {
+    public byte[] extractUntil(int delimiter) {
 	int counter = 1;
 	while (!isDone()) {
-	    if (iStream.read() != delimiter) {
+	    if (read() != delimiter) {
 		counter++;
 	    } else {
 		jumpBack(counter);

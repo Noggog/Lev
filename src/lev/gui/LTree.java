@@ -4,14 +4,12 @@
  */
 package lev.gui;
 
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.JTree;
-import javax.swing.event.TreeExpansionListener;
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.Painter;
 import javax.swing.tree.*;
 import lev.Ln;
 
@@ -33,18 +31,28 @@ public class LTree extends JTree {
      * @param height
      */
     public LTree(int width, int height) {
-        this();
-        setSize(width, height);
+	this();
+	setSize(width, height);
     }
 
     public LTree() {
 	super();
 	model = (DefaultTreeModel) this.getModel();
 
+//	Painter painter = new Painter() {
+//	    @Override
+//	    public void paint(Graphics2D g, Object o, int w, int h) {
+//		
+//	    }
+//	};
+//	javax.swing.UIDefaults defaults = new javax.swing.UIDefaults();
+//	defaults.put("Tree:TreeCell[Focused+Selected].backgroundPainter", painter);
+//	putClientProperty("Nimbus.Overrides", defaults);
+	
 	setRowHeight(20);
-        setVisible(true);
+	setVisible(true);
     }
-    
+
     public void clearTree() {
 	setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
     }
@@ -62,14 +70,14 @@ public class LTree extends JTree {
      * @param b
      */
     public void expand(Boolean b) {
-        Ln.expandAll(this, b);
+	Ln.expandAll(this, b);
     }
 
     /**
      *
      */
     public void expandRoot() {
-        expandPath(new TreePath((TreeNode) getModel().getRoot()));
+	expandPath(new TreePath((TreeNode) getModel().getRoot()));
     }
 
     /**
@@ -77,23 +85,23 @@ public class LTree extends JTree {
      * @return
      */
     public int getTotalRowHeight() {
-        return getRowCount() * getRowHeight();
+	return getRowCount() * getRowHeight();
     }
-    
+
     /**
      *
      * @return
      */
     public ArrayList<Integer> getExpandedRows() {
-        ArrayList<Integer> out = new ArrayList<>();
-        TreePath path;
-        for (int i = 0; i < getRowCount(); i++) {
-            path = getPathForRow(i);
-            if (isExpanded(path)) {
-                out.add(i);
-            }
-        }
-        return out;
+	ArrayList<Integer> out = new ArrayList<>();
+	TreePath path;
+	for (int i = 0; i < getRowCount(); i++) {
+	    path = getPathForRow(i);
+	    if (isExpanded(path)) {
+		out.add(i);
+	    }
+	}
+	return out;
     }
 
     /**
@@ -101,10 +109,10 @@ public class LTree extends JTree {
      * @param rows
      */
     public void expandRows(ArrayList<Integer> rows) {
-        for (int i : rows) {
-            TreePath path = getPathForRow(i);
-            expandPath(path);
-        }
+	for (int i : rows) {
+	    TreePath path = getPathForRow(i);
+	    expandPath(path);
+	}
     }
 
     /**
@@ -112,7 +120,7 @@ public class LTree extends JTree {
      * @return
      */
     public TreeNode getRoot() {
-        return (TreeNode) getModel().getRoot();
+	return (TreeNode) getModel().getRoot();
     }
 
     /**
@@ -120,18 +128,18 @@ public class LTree extends JTree {
      * @return
      */
     public ArrayList<Integer> rootRows() {
-        ArrayList<Integer> out = new ArrayList<>();
+	ArrayList<Integer> out = new ArrayList<>();
 
-        TreePath rootPath = new TreePath(getRoot());
-        TreeNode root = (TreeNode) rootPath.getLastPathComponent();
-        if (root.getChildCount() >= 0) {
-            for (Enumeration e = root.children(); e.hasMoreElements();) {
-                TreeNode n = (TreeNode) e.nextElement();
-                TreePath path = rootPath.pathByAddingChild(n);
-                out.add(getRowForPath(path));
-            }
-        }
-        return out;
+	TreePath rootPath = new TreePath(getRoot());
+	TreeNode root = (TreeNode) rootPath.getLastPathComponent();
+	if (root.getChildCount() >= 0) {
+	    for (Enumeration e = root.children(); e.hasMoreElements();) {
+		TreeNode n = (TreeNode) e.nextElement();
+		TreePath path = rootPath.pathByAddingChild(n);
+		out.add(getRowForPath(path));
+	    }
+	}
+	return out;
     }
 
     /**
@@ -148,21 +156,21 @@ public class LTree extends JTree {
      * @param row
      * @param state
      */
-    public void restoreExpansionState (int row, String state) {
+    public void restoreExpansionState(int row, String state) {
 	Ln.restoreExpanstionState(this, row, state);
     }
 
     /**
      *
      */
-    public void saveExpansionState () {
+    public void saveExpansionState() {
 	state = getExpansionState(0);
     }
 
     /**
      *
      */
-    public void restoreExpansionState () {
+    public void restoreExpansionState() {
 	restoreExpansionState(0, state);
     }
 
@@ -170,7 +178,25 @@ public class LTree extends JTree {
      *
      * @param node
      */
-    public void nodeChanged (TreeNode node) {
+    public void nodeChanged(TreeNode node) {
 	model.nodeChanged(node);
+    }
+
+    public void setBackground(Color c, boolean selected) {
+	if (selected) {
+	    final DefaultTreeCellRenderer r = (DefaultTreeCellRenderer) getCellRenderer();
+	    r.setBackgroundSelectionColor(c);
+	} else {
+	    setBackground(c);
+	}
+    }
+
+    public void setForeground(Color c, boolean selected) {
+	final DefaultTreeCellRenderer r = (DefaultTreeCellRenderer) getCellRenderer();
+	if (selected) {
+	    r.setTextSelectionColor(c);
+	} else {
+	    r.setTextNonSelectionColor(c);
+	}
     }
 }

@@ -49,23 +49,17 @@ public class LShrinkArray extends LChannel {
      * @param high New upper limit to give to the ShrinkArray.
      */
     public LShrinkArray(final LChannel rhs, final int high) {
-	this(rhs);
-	buffer.limit(high);
-    }
-
-    /**
-     * Creates a new ShrinkArray based on the same underlying array, starting at
-     * the same bounds of the rhs LChannel.
-     *
-     * @param rhs LChannel to copy bounds from.
-     */
-    public LShrinkArray(final LChannel rhs) {
 	if (rhs.getClass() == getClass()) {
 	    LShrinkArray rhss = (LShrinkArray) rhs;
 	    buffer = rhss.buffer.slice();
 	} else {
-	    buffer = ByteBuffer.wrap(rhs.extractAllBytes());
+	    buffer = ByteBuffer.wrap(rhs.getBytes(0, high));
 	}
+	buffer.limit(high);
+    }
+    
+    public LShrinkArray(final LShrinkArray rhs) {
+	this(rhs, rhs.available());
     }
 
     /**
@@ -159,12 +153,12 @@ public class LShrinkArray extends LChannel {
 
     @Override
     public void pos(long pos) {
-	throw new UnsupportedOperationException("Not supported yet.");
+	buffer.position((int)pos);
     }
 
     @Override
     public long pos() {
-	throw new UnsupportedOperationException("Not supported yet.");
+	return buffer.position();
     }
 
     @Override

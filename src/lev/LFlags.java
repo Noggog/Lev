@@ -9,15 +9,14 @@ import java.io.Serializable;
  */
 public class LFlags implements Serializable {
 
-    boolean[] flags;
-    private final int bitsPerInt = 8;
+    byte[] flags;
 
     /**
      *
      * @param size number of bytes-worth of flags to initialize.
      */
     public LFlags(int size) {
-        flags = new boolean[size * bitsPerInt];
+        flags = new byte[size];
     }
 
     /**
@@ -28,19 +27,17 @@ public class LFlags implements Serializable {
         set(inFlags);
     }
 
+    public LFlags(LFlags rhs) {
+	flags = new byte[rhs.flags.length];
+	System.arraycopy(rhs.flags, 0, flags, 0, rhs.flags.length);
+    }
+
     /**
      * Resizes LFlags to contain bytes and their associated flags
      * @param inFlags bytes to set LFlags to.
      */
     public final void set(byte[] inFlags) {
-        flags = new boolean[inFlags.length * bitsPerInt];
-        for (int i = 0; i < inFlags.length; i++) {
-            int integer = Ln.bToUInt(inFlags[i]);
-            for (int j = 0; j < bitsPerInt; j++) {
-                flags[j + i * bitsPerInt] = (integer % 2) == 1;
-                integer /= 2;
-            }
-        }
+        flags = inFlags;
     }
 
     /**
@@ -49,7 +46,8 @@ public class LFlags implements Serializable {
      * @return True if bit/Flag is on
      */
     public final boolean get(int bit) {
-        return flags[bit];
+	byte byt = flags[bit / 8];
+	return ((byt >>> (bit % 8)) & 1) != 0;
     }
 
     /**
@@ -58,7 +56,11 @@ public class LFlags implements Serializable {
      * @param on Sets the bit/flag on/off
      */
     public final void set(int bit, boolean on) {
-        flags[bit] = on;
+	int index = bit / 8;
+	flags[index] = (byte) (on
+		? flags[index] | (1 << (bit % 8))
+		: flags[index] & ~(1 << (bit % 8)));
+
     }
 
     /**
@@ -66,15 +68,7 @@ public class LFlags implements Serializable {
      * @return Byte array containing all the flags as bits.
      */
     public final byte[] export() {
-        byte[] out = new byte[flags.length / bitsPerInt];
-        for (int i = 0; i < out.length; i++) {
-            for (int j = 0; j < bitsPerInt; j++) {
-                if (flags[i * bitsPerInt + j]) {
-                    out[i] += 1 * Math.pow(2, j);
-                }
-            }
-        }
-        return out;
+        return flags;
     }
 
     /**
@@ -82,7 +76,7 @@ public class LFlags implements Serializable {
      * @return Length of the byte array representation
      */
     public final int length() {
-        return flags.length / bitsPerInt;
+        return flags.length;
     }
 
     /**
@@ -90,7 +84,7 @@ public class LFlags implements Serializable {
      */
     public final void clear() {
         for (int i = 0; i < flags.length; i++) {
-            flags[i] = false;
+            flags[i] = 0;
         }
     }
 
@@ -99,8 +93,8 @@ public class LFlags implements Serializable {
      * @return True if all flags are set to false
      */
     public boolean isZeros() {
-	for (boolean b : flags) {
-	    if (b) {
+	for (byte b : flags) {
+	    if (b != 0) {
 		return false;
 	    }
 	}
@@ -114,12 +108,8 @@ public class LFlags implements Serializable {
     @Override
     public final String toString() {
         String out = "";
-        for (boolean b : flags) {
-            if (b) {
-                out += "1";
-            } else {
-                out += "0";
-            }
+        for (byte b : flags) {
+            out += Integer.toBinaryString(b);
         }
         return out;
     }

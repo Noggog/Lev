@@ -35,6 +35,9 @@ public class LTree extends JTree {
 	setSize(width, height);
     }
 
+    /**
+     *
+     */
     public LTree() {
 	super();
 	model = (DefaultTreeModel) this.getModel();
@@ -42,25 +45,36 @@ public class LTree extends JTree {
 //	Painter painter = new Painter() {
 //	    @Override
 //	    public void paint(Graphics2D g, Object o, int w, int h) {
-//		
+//
 //	    }
 //	};
 //	javax.swing.UIDefaults defaults = new javax.swing.UIDefaults();
 //	defaults.put("Tree:TreeCell[Focused+Selected].backgroundPainter", painter);
 //	putClientProperty("Nimbus.Overrides", defaults);
-	
+
 	setRowHeight(20);
 	setVisible(true);
     }
 
+    /**
+     *
+     */
     public void clearTree() {
 	setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
     }
 
+    /**
+     *
+     * @param n
+     */
     public void setRoot(TreeNode n) {
 	setModel(new DefaultTreeModel(n));
     }
 
+    /**
+     *
+     * @param depth
+     */
     public void expandToDepth(int depth) {
 	Ln.expandToDepth(this, depth);
     }
@@ -182,6 +196,11 @@ public class LTree extends JTree {
 	model.nodeChanged(node);
     }
 
+    /**
+     *
+     * @param c
+     * @param selected
+     */
     public void setBackground(Color c, boolean selected) {
 	if (selected) {
 	    final DefaultTreeCellRenderer r = (DefaultTreeCellRenderer) getCellRenderer();
@@ -191,6 +210,11 @@ public class LTree extends JTree {
 	}
     }
 
+    /**
+     *
+     * @param c
+     * @param selected
+     */
     public void setForeground(Color c, boolean selected) {
 	final DefaultTreeCellRenderer r = (DefaultTreeCellRenderer) getCellRenderer();
 	if (selected) {

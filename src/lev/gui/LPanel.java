@@ -138,7 +138,7 @@ public class LPanel extends JPanel implements Scrollable {
 	return last;
     }
 
-    public void place(Component c) {
+    public void placeAdd(Component c) {
 	setPlacement(c);
 	Add(c);
     }

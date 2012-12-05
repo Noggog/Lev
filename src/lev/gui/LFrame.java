@@ -19,7 +19,7 @@ public class LFrame extends JFrame {
     protected LImagePane background;
     private static int marginX = 16;
     private static int marginY = 38;
-
+    protected boolean init = false;
 
     public LFrame (String title) {
 	super(title);
@@ -30,6 +30,17 @@ public class LFrame extends JFrame {
 	this.getContentPane().add(background);
     }
 
+    protected void init() {
+    }
+    
+    public void open() {
+	if (!init) {
+	    init();
+	    init = true;
+	}
+	setVisible(true);
+    }
+    
     @Override
     public void setBackground(Color c) {
 	getContentPane().setBackground(c);

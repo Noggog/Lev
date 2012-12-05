@@ -2,7 +2,6 @@ package lev;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -16,9 +15,9 @@ import java.util.logging.Logger;
  */
 public class LFileChannel extends LChannel {
 
-    FileInputStream iStream;
-    FileChannel iChannel;
-    long end;
+    protected FileInputStream iStream;
+    protected FileChannel iChannel;
+    protected long end;
 
     /**
      *
@@ -51,6 +50,10 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     public LFileChannel(LFileChannel rhs, long allocation) {
+	slice(rhs, allocation);
+    }
+    
+    protected void slice(LFileChannel rhs, long allocation) {
 	LFileChannel fc = (LFileChannel) rhs;
 	iStream = fc.iStream;
 	iChannel = fc.iChannel;
@@ -62,7 +65,7 @@ public class LFileChannel extends LChannel {
      * @param path Path to open a channel to.
      * @throws IOException 
      */
-    final public void openFile(final String path) {
+    public void openFile(final String path) {
 	try {
 	    iStream = new FileInputStream(path);
 	    iChannel = iStream.getChannel();
@@ -77,7 +80,7 @@ public class LFileChannel extends LChannel {
      * @param f File to open a channel to.
      * @throws IOException
      */
-    final public void openFile(final File f) {
+    public void openFile(final File f) {
 	openFile(f.getPath());
     }
 
@@ -88,7 +91,7 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public int read(){
+    public int read(){
 	try {
 	    return iStream.read();
 	} catch (IOException ex) {
@@ -105,7 +108,7 @@ public class LFileChannel extends LChannel {
      * @return ByteBuffer containing read bytes.
      * @throws IOException
      */
-    final public ByteBuffer extractByteBuffer(int skip, int read) {
+    public ByteBuffer extractByteBuffer(int skip, int read) {
 	super.skip(skip);
 	ByteBuffer buf = ByteBuffer.allocate(read);
 	try {
@@ -123,7 +126,7 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public void pos(long pos) {
+    public void pos(long pos) {
 	try {
 	    iChannel.position(pos);
 	} catch (IOException ex) {
@@ -137,7 +140,7 @@ public class LFileChannel extends LChannel {
      * @throws IOException
      */
     @Override
-    final public long pos() {
+    public long pos() {
 	try {
 	    return iChannel.position();
 	} catch (IOException ex) {

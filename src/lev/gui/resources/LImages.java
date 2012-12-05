@@ -28,6 +28,7 @@ public class LImages {
      * Returns an arrow graphic pointing left or right.
      *
      * @param leftArrow
+     * @param dark 
      * @return
      */
     public static BufferedImage arrow(boolean leftArrow, boolean dark) {

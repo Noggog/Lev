@@ -6,6 +6,7 @@ package lev.gui;
 
 import java.awt.AlphaComposite;
 import java.awt.Component;
+import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -70,7 +71,7 @@ public class Lg {
      * @param maxY Max height
      * @return New dimensions fitting inside limits, while retaining aspect ratio.
      */
-    static public Dimension calcSize(double x, double y, int maxX, int maxY) {
+    static public Dimension calcSize(double x, double y, int maxX, int maxY)  {
 	if (maxX == 0) {
 	    maxX = Integer.MAX_VALUE;
 	}
@@ -87,21 +88,43 @@ public class Lg {
         return new Dimension((int) x, (int) y);
     }
 
-    static public Dimension calcSize(double x, double y, int minX, int minY, int maxX, int maxY) {
-	Dimension max = calcSize(x,y,maxX,maxY);
-	if (minX == 0 && minY == 0) {
-	    return max;
-	}
-	double xMod = 1.0 * minX / x;
-	double yMod = 1.0 * minY / y;
-
-        return new Dimension((int) x, (int) y);
-    }
-
+    /**
+     * Returns the height of the taller component.
+     * @param a
+     * @param b
+     * @return
+     */
     static public int taller (Component a, Component b) {
 	if (a.getHeight() > b.getHeight()) {
 	    return a.getHeight();
 	}
 	return b.getHeight();
+    }
+
+    /**
+     * Creates an Alpha Composite with the given transparency
+     * @param trans
+     * @return
+     */
+    static public Composite getAlphaComposite(float trans) {
+	return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, trans);
+    }
+
+    /**
+     * Returns the spacing that should be given to the components.
+     * @param horiz Horizontal spacing vs vertical
+     * @param allocated How much space the components should take up
+     * @param cs the components to space
+     * @return the spacing
+     */
+    static public int getSpacing(boolean horiz, int allocated, Component ... cs) {
+	for (Component c : cs) {
+	    if (horiz) {
+		allocated -= c.getWidth();
+	    } else {
+		allocated -= c.getHeight();
+	    }
+	}
+	return allocated / (cs.length + 1);
     }
 }

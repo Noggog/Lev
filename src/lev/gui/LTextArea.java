@@ -45,6 +45,10 @@ public class LTextArea extends LComponent {
 	this(new Dimension(x, y), c);
     }
 
+    /**
+     *
+     * @param c
+     */
     public LTextArea(Color c) {
 	area = new JTextArea();
 	doc = area.getDocument();

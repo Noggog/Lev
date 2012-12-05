@@ -16,22 +16,39 @@ import java.util.Set;
  */
 public abstract class Setting<T> {
 
+    /**
+     *
+     */
     protected T data;
+    /**
+     *
+     */
     protected String title;
+    /**
+     *
+     */
     protected LUserSetting<T> tie;
+    /**
+     *
+     */
     protected Boolean[] extraFlags;
 
     /**
      *
      * @param title_
      * @param data_
-     * @param patchChanging
+     * @param extraFlags 
      */
     public Setting(String title_, T data_, Boolean[] extraFlags) {
 	this(title_, extraFlags);
 	setTo(data_);
     }
 
+    /**
+     *
+     * @param title_
+     * @param extraFlags
+     */
     public Setting(String title_, Boolean[] extraFlags) {
         title = title_;
         this.extraFlags = extraFlags;
@@ -52,11 +69,19 @@ public abstract class Setting<T> {
     public Boolean getBool() {
         return (Boolean)data;
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public Color getColor() {
 	return (Color) data;
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public Float getFloat() {
 	return (Float) data;
     }
@@ -85,6 +110,10 @@ public abstract class Setting<T> {
         return data.toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public Object getData() {
 	return data;
     }
@@ -131,7 +160,6 @@ public abstract class Setting<T> {
      *
      * @param input
      * @throws java.io.IOException
-     * @throws BadParameter
      */
     public void readSetting(String input) throws java.io.IOException {
         parse(input.trim());
@@ -140,7 +168,6 @@ public abstract class Setting<T> {
     /**
      *
      * @param in
-     * @throws BadParameter
      */
     public abstract void parse (String in);
 

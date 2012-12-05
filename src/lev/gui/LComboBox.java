@@ -23,6 +23,7 @@ public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 
     JComboBox<T> box;
     T previous;
+    LButton enterButton;
 
     /**
      *
@@ -60,6 +61,12 @@ public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 	    box.setSize(x, y);
 	} else {
 	    box.setSize(x, y - titleLabel.getY() - titleLabel.getHeight() - 10);
+	}
+	
+	if (enterButton != null) {
+	    enterButton.setLocation(x - enterButton.getWidth(), box.getY());
+	    box.setSize(x - enterButton.getWidth() - 5, box.getHeight());
+	    enterButton.setSize(enterButton.getWidth(), box.getHeight());
 	}
     }
 
@@ -165,6 +172,9 @@ public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 	for (Component c : box.getComponents()) {
 	    c.addFocusListener(f);
 	}
+	if (enterButton != null) {
+	    enterButton.addFocusListener(f);
+	}
     }
 
     @Override
@@ -177,11 +187,26 @@ public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 	if (titleLabel != null) {
 	    titleLabel.addMouseListener(m);
 	}
+	if (enterButton != null) {
+	    enterButton.addMouseListener(m);
+	}
     }
 
     @Override
     protected void addUpdateHandlers() {
 	box.addActionListener(new UpdateHandler());
+    }
+    
+    /**
+     *
+     * @param label
+     * @param done
+     */
+    public void addEnterButton(String label, ActionListener done) {
+	enterButton = new LButton(label);
+	enterButton.addActionListener(done);
+	add(enterButton);
+	setSize(getSize().width, getSize().height);
     }
 
     /**

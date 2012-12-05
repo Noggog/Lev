@@ -51,10 +51,20 @@ public class LFonts {
 	return getFont("OLEO.ttf", size);
     }
 
+    /**
+     *
+     * @param size
+     * @return
+     */
     public static Font MyriadPro (float size) {
 	return getFont("MyriadPro-Regular.ttf", size);
     }
 
+    /**
+     *
+     * @param size
+     * @return
+     */
     public static Font MyriadProBold (float size) {
 	return getFont("myriadwebpro-bold.ttf", size);
     }

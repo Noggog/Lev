@@ -3,8 +3,9 @@ package lev;
 import java.io.Serializable;
 
 /**
- * An object that is meant to hold a set of boolean flags.
- * Takes in byte arrays and converts each bit to its own flag.
+ * An object that is meant to hold a set of boolean flags. Takes in byte arrays
+ * and converts each bit to its own flag.
+ *
  * @author Justin Swanson
  */
 public class LFlags implements Serializable {
@@ -16,7 +17,7 @@ public class LFlags implements Serializable {
      * @param size number of bytes-worth of flags to initialize.
      */
     public LFlags(int size) {
-        flags = new byte[size];
+	flags = new byte[size];
     }
 
     /**
@@ -24,7 +25,8 @@ public class LFlags implements Serializable {
      * @param inFlags bytes to initialize flags to.
      */
     public LFlags(byte[] inFlags) {
-        set(inFlags);
+	flags = new byte[inFlags.length];
+	set(inFlags);
     }
 
     public LFlags(LFlags rhs) {
@@ -34,10 +36,11 @@ public class LFlags implements Serializable {
 
     /**
      * Resizes LFlags to contain bytes and their associated flags
+     *
      * @param inFlags bytes to set LFlags to.
      */
     public final void set(byte[] inFlags) {
-        flags = inFlags;
+	System.arraycopy(inFlags, 0, flags, 0, flags.length);
     }
 
     /**
@@ -63,12 +66,22 @@ public class LFlags implements Serializable {
 
     }
 
+    public final int getFirstTrue() {
+	for (int i = 0; i < length() * 8; i++) {
+	    if (get(i)) {
+		return i;
+	    }
+	}
+	return -1;
+    }
+
     /**
      * Converts the boolean flags to a byte array.
+     *
      * @return Byte array containing all the flags as bits.
      */
     public final byte[] export() {
-        return flags;
+	return flags;
     }
 
     /**
@@ -76,16 +89,16 @@ public class LFlags implements Serializable {
      * @return Length of the byte array representation
      */
     public final int length() {
-        return flags.length;
+	return flags.length;
     }
 
     /**
      * Sets all flags to false.
      */
     public final void clear() {
-        for (int i = 0; i < flags.length; i++) {
-            flags[i] = 0;
-        }
+	for (int i = 0; i < flags.length; i++) {
+	    flags[i] = 0;
+	}
     }
 
     /**
@@ -103,14 +116,18 @@ public class LFlags implements Serializable {
 
     /**
      *
-     * @return String of 1's and 0's.  Beep boop beep.
+     * @return String of 1's and 0's. Beep boop beep.
      */
     @Override
     public final String toString() {
-        String out = "";
-        for (byte b : flags) {
-            out += Integer.toBinaryString(b);
-        }
-        return out;
+	String out = "";
+	for (int i = 0; i < length() * 8; i++) {
+	    if (get(i)) {
+		out += "1";
+	    } else {
+		out += "0";
+	    }
+	}
+	return out;
     }
 }

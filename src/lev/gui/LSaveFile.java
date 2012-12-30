@@ -230,7 +230,7 @@ public abstract class LSaveFile {
      * @param extraFlags
      * @param b Default value to assign the setting.
      */
-    protected void Add(Enum type, Boolean b, Boolean... extraFlags) {
+    public void Add(Enum type, Boolean b, Boolean... extraFlags) {
 	Add(type, new SaveBool(type.toString(), b, extraFlags));
     }
 
@@ -241,7 +241,7 @@ public abstract class LSaveFile {
      * @param s Default value to assign the setting.
      * @param extraFlags
      */
-    protected void Add(Enum type, String s, Boolean... extraFlags) {
+    public void Add(Enum type, String s, Boolean... extraFlags) {
 	Add(type, new SaveString(type.toString(), s, extraFlags));
     }
 
@@ -252,7 +252,7 @@ public abstract class LSaveFile {
      * @param extraFlags
      * @param i Default value to assign the setting.
      */
-    protected void Add(Enum type, Integer i, Boolean... extraFlags) {
+    public void Add(Enum type, Integer i, Boolean... extraFlags) {
 	Add(type, new SaveInt(type.toString(), i, extraFlags));
     }
 
@@ -263,7 +263,7 @@ public abstract class LSaveFile {
      * @param e
      * @param extraFlags
      */
-    protected void Add(Enum type, Enum e, Boolean... extraFlags) {
+    public void Add(Enum type, Enum e, Boolean... extraFlags) {
 	Add(type, new SaveEnum(type.toString(), e, extraFlags));
     }
 
@@ -274,7 +274,7 @@ public abstract class LSaveFile {
      * @param strs
      * @param extraFlags
      */
-    protected void Add(Enum type, Set<String> strs, Boolean... extraFlags) {
+    public void Add(Enum type, Set<String> strs, Boolean... extraFlags) {
 	Add(type, new SaveStringSet(type.toString(), strs, extraFlags));
     }
 
@@ -285,7 +285,7 @@ public abstract class LSaveFile {
      * @param f Default value to assign the setting.
      * @param extraFlags
      */
-    protected void Add(Enum type, Float f, Boolean... extraFlags) {
+    public void Add(Enum type, Float f, Boolean... extraFlags) {
 	Add(type, new SaveFloat(type.toString(), f, extraFlags));
     }
 
@@ -296,7 +296,7 @@ public abstract class LSaveFile {
      * @param f Default value to assign the setting.
      * @param extraFlags
      */
-    protected void Add(Enum type, Color c, Boolean... extraFlags) {
+    public void Add(Enum type, Color c, Boolean... extraFlags) {
 	Add(type, new SaveColor(type.toString(), c, extraFlags));
     }
 

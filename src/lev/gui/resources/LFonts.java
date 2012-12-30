@@ -69,6 +69,10 @@ public class LFonts {
 	return getFont("myriadwebpro-bold.ttf", size);
     }
 
+    public static Font ReasonSystem (float size) {
+	return getFont("reasonSystem-Regular.ttf", size);
+    }
+
     static Font getFont(String path, float size) {
 	try {
 	    Font font = Font.createFont(Font.TRUETYPE_FONT, LFonts.class.getResource(path).openStream());

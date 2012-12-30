@@ -192,7 +192,7 @@ public class LLogger {
      *
      * @param e Exception to print.
      */
-    public void logException(Exception e) {
+    public void logException(Throwable e) {
 	StringWriter sw = new StringWriter();
 	PrintWriter pw = new PrintWriter(sw, true);
 	e.printStackTrace(pw);

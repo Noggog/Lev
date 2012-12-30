@@ -6,6 +6,7 @@ package lev.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.File;
@@ -24,6 +25,7 @@ public class LImagePane extends LPanel {
     int IMG_WIDTH = 0;
     int IMG_HEIGHT = 0;
     boolean allowAlpha = true;
+    float alpha = 1;
 
     /**
      * Creates an image pane with no set image.
@@ -153,6 +155,9 @@ public class LImagePane extends LPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
+	if (allowAlpha) {
+	    ((Graphics2D) g).setComposite(Lg.getAlphaComposite(alpha));
+	}
 	g.drawImage(img, 0, 0, null);
     }
 
@@ -162,6 +167,10 @@ public class LImagePane extends LPanel {
      */
     public void allowAlpha(Boolean on) {
 	allowAlpha = on;
+    }
+    
+    public void setAlpha(float value) {
+	alpha = value;
     }
 
     /**

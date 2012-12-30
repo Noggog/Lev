@@ -24,7 +24,7 @@ import javax.swing.event.ChangeListener;
 public class LCheckBox extends LUserSetting<Boolean> {
 
     private JCheckBox cbox;
-    ArrayList<LComponent> underlings = new ArrayList<>();
+    ArrayList<LComponent> underlings = new ArrayList<>(0);
 
     /**
      *
@@ -49,7 +49,7 @@ public class LCheckBox extends LUserSetting<Boolean> {
 	setVisible(true);
 	add(cbox);
     }
-    
+
     @Override
     public int getCenter() {
 	return titleLabel.getWidth() + 3;
@@ -118,6 +118,12 @@ public class LCheckBox extends LUserSetting<Boolean> {
      */
     public void addChangeListener(ChangeListener l) {
 	cbox.addChangeListener(l);
+    }
+
+    @Override
+    public void addMouseListener(MouseListener l) {
+	titleLabel.addMouseListener(l);
+	cbox.addMouseListener(l);
     }
 
     @Override

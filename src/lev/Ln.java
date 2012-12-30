@@ -365,7 +365,7 @@ public class Ln {
      * depth parameters.
      */
     public static ArrayList<File> generateFileList(File src, int minDepth, int maxDepth, boolean addDirs) {
-	ArrayList<File> out = new ArrayList<File>();
+	ArrayList<File> out = new ArrayList<>();
 	if (src.isDirectory()) {
 	    for (File f : src.listFiles()) {
 		if (minDepth <= 0 && (f.isFile() || addDirs)) {
@@ -1473,16 +1473,12 @@ public class Ln {
      */
     public static ArrayList<Class> loadClasses(File jarPath, boolean skipBad) throws MalformedURLException, FileNotFoundException, IOException, ClassNotFoundException {
 	ArrayList<String> classPaths = getClasses(jarPath);
-	ArrayList<Class> out = new ArrayList<Class>(classPaths.size());
+	ArrayList<Class> out = new ArrayList<>(classPaths.size());
 	ClassLoader loader = new URLClassLoader(new URL[]{jarPath.toURI().toURL()});
 	for (String s : classPaths) {
 	    try {
-		out.add(loader.loadClass(s));
-	    } catch (ClassNotFoundException ex) {
-		if (!skipBad) {
-		    throw ex;
-		}
-	    } catch (NoClassDefFoundError ex) {
+    		out.add(loader.loadClass(s));
+	    } catch (Throwable ex) {
 		if (!skipBad) {
 		    throw ex;
 		}
@@ -1615,10 +1611,11 @@ public class Ln {
      *
      * @param in
      */
-    public static void toUpper(ArrayList<String> in) {
+    public static ArrayList<String> toUpper(ArrayList<String> in) {
 	for (int i = 0; i < in.size(); i++) {
 	    in.set(i, in.get(i).toUpperCase());
 	}
+	return in;
     }
 
     /**

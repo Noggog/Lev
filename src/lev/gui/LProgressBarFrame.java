@@ -5,7 +5,6 @@
 package lev.gui;
 
 import java.awt.*;
-import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeListener;
@@ -18,16 +17,15 @@ import lev.gui.resources.LImages;
  */
 public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
 
-    LProgressBar bar;
-    LLabel title;
-    Dimension correctLocation = new Dimension(0, 0);
-    Dimension GUIsize = new Dimension(250, 100);
-    LImagePane backgroundPanel;
-    JFrame guiRef;
+    protected LProgressBar bar;
+    protected LLabel title;
+    protected Dimension correctLocation = new Dimension(0, 0);
+    protected Dimension GUIsize = new Dimension(250, 100);
+    protected LImagePane backgroundPanel;
+    protected JFrame guiRef;
     /**
      * JFrame operation to execute when the window is closed.
      */
-    public int closeOp = JFrame.DO_NOTHING_ON_CLOSE;
 
     /**
      *
@@ -40,7 +38,7 @@ public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
 	bar = new LProgressBar(150, 15, footer, footerC);
 	addComponents(header, headerC);
 	moveToCorrectLocation();
-	setDefaultCloseOperation(closeOp);
+	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     final void addComponents(Font header, Color headerC) {
@@ -67,7 +65,7 @@ public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
      * Sets the progress bar to exit the program when it is closed.
      */
     public void setExitOnClose() {
-	closeOp = JFrame.DISPOSE_ON_CLOSE;
+	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     @Override
@@ -98,6 +96,8 @@ public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
 	if (guiRef != null) {
 	    Rectangle r = guiRef.getBounds();
 	    setLocation(r.x + correctLocation.width, r.y + correctLocation.height);
+	} else {
+	    setLocation(correctLocation.width, correctLocation.height);
 	}
     }
 
@@ -139,7 +139,6 @@ public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
      */
     public void close() {
 	setVisible(false);
-//	bar.done.setSelected(!bar.done.isSelected());
     }
 
     /**

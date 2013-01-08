@@ -77,6 +77,10 @@ public abstract class Setting<T> {
     public Color getColor() {
 	return (Color) data;
     }
+    
+    public Enum getEnum() {
+	return (Enum) data;
+    }
 
     /**
      *

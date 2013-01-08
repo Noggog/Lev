@@ -176,8 +176,13 @@ public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
     }
 
     @Override
-    public void setStatus(int min, int max, String status) {
-	bar.setStatus(min, max, status);
+    public void setStatusNumbered(int min, int max, String status) {
+	bar.setStatusNumbered(min, max, status);
+    }
+    
+    @Override
+    public void setStatusNumbered(String status) {
+	bar.setStatusNumbered(status);
     }
 
     @Override

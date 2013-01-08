@@ -1446,7 +1446,7 @@ public class Ln {
     public static ArrayList<String> getClasses(File jarPath) throws FileNotFoundException, IOException {
 	JarEntry jarEntry;
 	JarInputStream jarFile = new JarInputStream(new FileInputStream(jarPath));
-	ArrayList<String> out = new ArrayList<String>();
+	ArrayList<String> out = new ArrayList<>();
 	String name;
 	while ((jarEntry = jarFile.getNextJarEntry()) != null) {
 	    name = jarEntry.getName();
@@ -1525,7 +1525,7 @@ public class Ln {
      */
     public static String toJsonPretty(JsonElement object, String... exclude) {
 	String out = "{\n";
-	ArrayList<String> excludeList = new ArrayList<String>(Arrays.asList(exclude));
+	ArrayList<String> excludeList = new ArrayList<>(Arrays.asList(exclude));
 	out += toJsonPretty(object, 1, excludeList);
 	return out + "\n}";
     }
@@ -1606,6 +1606,16 @@ public class Ln {
 	return loadFileToStrings(new File(path), toUpper);
     }
 
+    public static void writeStringsToFile(String path, ArrayList<String> strs) throws IOException {
+	File file = new File(path);
+	Ln.makeDirs(file);
+	BufferedWriter out = new BufferedWriter(new FileWriter(file));
+	for (String s : strs) {
+	    out.write(s + "\n");
+	}
+	out.close();
+    }
+    
     /**
      * Makes every item in the ArrayList uppercase
      *
@@ -1616,6 +1626,23 @@ public class Ln {
 	    in.set(i, in.get(i).toUpperCase());
 	}
 	return in;
+    }
+    
+    public static String[] toUpper (String[] in) {
+	for (int i = 0 ; i < in.length ; i++) {
+	    in[i] = in[i].toUpperCase();
+	}
+	return in;
+    }
+    
+    public static String get(String[] arr, String target) {
+	target = target.toUpperCase();
+	for (String s : arr) {
+	    if (target.equals(s.toUpperCase())) {
+		return s;
+	    }
+	}
+	return null;
     }
 
     /**
@@ -1652,11 +1679,20 @@ public class Ln {
      * @param s
      * @return
      */
-    public static boolean containsIgnoreCase(ArrayList<String> list, String s) {
-	for (String s1 : list) {
-	    if (s1.equalsIgnoreCase(s)) {
-		return true;
+    public static int indexOfIgnoreCase(ArrayList<String> list, String s) {
+	for (int i = 0 ; i < list.size() ; i++) {
+	    if (list.get(i).equalsIgnoreCase(s)) {
+		return i;
 	    }
+	}
+	return -1;
+    }
+
+    public static boolean removeIgnoreCase(ArrayList<String> list, String s) {
+	int index = indexOfIgnoreCase(list, s);
+	if (index != -1) {
+	    list.remove(index);
+	    return true;
 	}
 	return false;
     }

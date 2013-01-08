@@ -514,6 +514,10 @@ public abstract class LSaveFile {
     public Color getColor(Enum s) {
 	return curSettings.get(s).getColor();
     }
+    
+    public Enum getEnum(Enum s) {
+	return curSettings.get(s).getEnum();
+    }
 
     public float getFloat(Enum s) {
 	return curSettings.get(s).getFloat();

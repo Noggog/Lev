@@ -35,7 +35,8 @@ public interface LProgressBarInterface {
      * @param max
      * @param status
      */
-    void setStatus(int cur, int max, String status);
+    void setStatusNumbered(int cur, int max, String status);
+    void setStatusNumbered(String status);
     /**
      * Increments the progress bar one unit.
      */

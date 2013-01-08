@@ -70,7 +70,7 @@ public class LProgressBar extends LComponent implements LProgressBarInterface {
     public void addShadow() {
 	status.addShadow();
     }
-    
+
     @Override
     public void incrementBar() {
 	if (!pause) {
@@ -169,9 +169,22 @@ public class LProgressBar extends LComponent implements LProgressBarInterface {
     }
 
     @Override
-    public void setStatus(int min, int max, String status) {
+    public void setStatusNumbered(int min, int max, String status) {
 	if (!pause) {
 	    setStatus("(" + min + "/" + max + ") " + status);
+	}
+    }
+
+    @Override
+    public void setStatusNumbered(final String status) {
+	if (!pause) {
+	    SwingUtilities.invokeLater(new Runnable() {
+
+		@Override
+		public void run() {
+		    setStatus("(" + (getBar() + 1) + "/" + getMax() + ") " + status);
+		}
+	    });
 	}
     }
 

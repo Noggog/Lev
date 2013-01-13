@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @author Justin Swanson
  */
-public class SaveStringSet extends Setting<Set<String>> {
+public class SaveStringList extends Setting<ArrayList<String>> {
 
     static String delimiter = "<#>";
 
@@ -22,7 +22,7 @@ public class SaveStringSet extends Setting<Set<String>> {
      * @param data_
      * @param extraFlags
      */
-    public SaveStringSet(String title_, Set<String> data_, Boolean[] extraFlags) {
+    public SaveStringList(String title_, ArrayList<String> data_, Boolean[] extraFlags) {
 	super(title_, data_, extraFlags);
     }
 
@@ -42,16 +42,16 @@ public class SaveStringSet extends Setting<Set<String>> {
     @Override
     public void parse(String in) {
 	String[] split = in.split(delimiter);
-	data = new HashSet<>(split.length);
+	data = new ArrayList<>(split.length);
 	for (int i = 0; i < split.length; i++) {
 	    data.add(split[i]);
 	}
     }
 
     @Override
-    public Setting<Set<String>> copyOf() {
-	SaveStringSet out = new SaveStringSet(title, data, extraFlags);
-	out.data = new HashSet<>(data);
+    public Setting<ArrayList<String>> copyOf() {
+	SaveStringList out = new SaveStringList(title, data, extraFlags);
+	out.data = new ArrayList<>(data);
 	out.tie = tie;
 	return out;
     }

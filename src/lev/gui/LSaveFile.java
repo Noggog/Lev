@@ -120,7 +120,7 @@ public abstract class LSaveFile {
     protected abstract void initHelp();
 
     void readInSettings() {
-	File f = new File(location.getPath() + "/Savefile");
+	File f = new File(location.getPath());
 	if (f.exists()) {
 	    try {
 		BufferedReader input = new BufferedReader(new FileReader(f));
@@ -139,7 +139,7 @@ public abstract class LSaveFile {
 			    if (saveSettings.containsKey(s)) {
 				if (saveSettings.get(s).getTitle().equals(settingTitle)) {
 				    // Multiline setting
-				    if (saveSettings.get(s).getClass() == SaveStringSet.class) {
+				    if (saveSettings.get(s).getClass() == SaveStringList.class) {
 					int num = Integer.valueOf(inStr.trim());
 					inStr = "";
 					for (int i = 0; i < num; i++) {
@@ -148,6 +148,7 @@ public abstract class LSaveFile {
 				    }
 				    saveSettings.get(s).readSetting(inStr);
 				    curSettings.get(s).readSetting(inStr);
+				    break;
 				}
 			    }
 			}
@@ -179,7 +180,7 @@ public abstract class LSaveFile {
 		if (saveSettings.containsKey(s)) {
 		    if (saveSettings.get(s).getTitle().equals(settingTitle)) {
 			// Multiline setting
-			if (saveSettings.get(s).getClass() == SaveStringSet.class) {
+			if (saveSettings.get(s).getClass() == SaveStringList.class) {
 			    int num = Integer.valueOf(inStr.trim());
 			    inStr = "";
 			    for (int i = 0; i < num; i++) {
@@ -201,10 +202,10 @@ public abstract class LSaveFile {
     public void saveToFile() {
 
 	File f = location;
-	if (!f.isDirectory()) {
+	File dir = f.getParentFile();
+	if (!dir.isDirectory()) {
 	    f.mkdirs();
 	}
-	f = new File(f.getPath() + "/Savefile");
 	if (f.isFile()) {
 	    f.delete();
 	}
@@ -282,8 +283,8 @@ public abstract class LSaveFile {
      * @param strs
      * @param extraFlags
      */
-    public void Add(Enum type, Set<String> strs, Boolean... extraFlags) {
-	Add(type, new SaveStringSet(type.toString(), strs, extraFlags));
+    public void Add(Enum type, ArrayList<String> strs, Boolean... extraFlags) {
+	Add(type, new SaveStringList(type.toString(), strs, extraFlags));
     }
 
     /**
@@ -585,8 +586,8 @@ public abstract class LSaveFile {
      * @param s
      * @return
      */
-    public Set<String> getStrings(Enum s) {
-	return curSettings.get(s).getStrings();
+    public ArrayList<String> getStrings(Enum s) {
+	return new ArrayList<String>(curSettings.get(s).getStrings());
     }
 
     /**
@@ -623,5 +624,14 @@ public abstract class LSaveFile {
      */
     public void setBool(Enum e, boolean b) {
 	curSettings.get(e).setTo(b);
+    }
+
+    /**
+     *
+     * @param e
+     * @param strs
+     */
+    public void setStrings(Enum e, ArrayList<String> strs) {
+	curSettings.get(e).setTo(strs);
     }
 }

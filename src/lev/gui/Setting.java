@@ -6,6 +6,7 @@ package lev.gui;
 
 import java.awt.Color;
 import java.io.BufferedWriter;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 
@@ -106,8 +107,8 @@ public abstract class Setting<T> {
      *
      * @return Returns the value as a Set of Strings.  Could fail.
      */
-    public Set<String> getStrings() {
-	return (Set<String>) data;
+    public ArrayList<String> getStrings() {
+	return (ArrayList<String>) data;
     }
 
     /**

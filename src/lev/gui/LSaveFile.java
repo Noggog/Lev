@@ -204,7 +204,7 @@ public abstract class LSaveFile {
 	File f = location;
 	File dir = f.getParentFile();
 	if (!dir.isDirectory()) {
-	    f.mkdirs();
+	    dir.mkdirs();
 	}
 	if (f.isFile()) {
 	    f.delete();

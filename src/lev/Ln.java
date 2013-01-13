@@ -832,6 +832,11 @@ public class Ln {
 	}
     }
 
+    /**
+     *
+     * @param tree
+     * @param depth
+     */
     public static void expandToDepth(JTree tree, int depth) {
 	expandAll(tree, false);
 	expandAll(tree, true, 0, depth);
@@ -1606,6 +1611,12 @@ public class Ln {
 	return loadFileToStrings(new File(path), toUpper);
     }
 
+    /**
+     *
+     * @param path
+     * @param strs
+     * @throws IOException
+     */
     public static void writeStringsToFile(String path, ArrayList<String> strs) throws IOException {
 	File file = new File(path);
 	Ln.makeDirs(file);
@@ -1615,11 +1626,12 @@ public class Ln {
 	}
 	out.close();
     }
-    
+
     /**
      * Makes every item in the ArrayList uppercase
      *
      * @param in
+     * @return
      */
     public static ArrayList<String> toUpper(ArrayList<String> in) {
 	for (int i = 0; i < in.size(); i++) {
@@ -1627,14 +1639,25 @@ public class Ln {
 	}
 	return in;
     }
-    
+
+    /**
+     *
+     * @param in
+     * @return
+     */
     public static String[] toUpper (String[] in) {
 	for (int i = 0 ; i < in.length ; i++) {
 	    in[i] = in[i].toUpperCase();
 	}
 	return in;
     }
-    
+
+    /**
+     *
+     * @param arr
+     * @param target
+     * @return
+     */
     public static String get(String[] arr, String target) {
 	target = target.toUpperCase();
 	for (String s : arr) {
@@ -1688,6 +1711,12 @@ public class Ln {
 	return -1;
     }
 
+    /**
+     *
+     * @param list
+     * @param s
+     * @return
+     */
     public static boolean removeIgnoreCase(ArrayList<String> list, String s) {
 	int index = indexOfIgnoreCase(list, s);
 	if (index != -1) {
@@ -1697,6 +1726,12 @@ public class Ln {
 	return false;
     }
 
+    /**
+     * Gets a string containing N number of String s.
+     * @param n
+     * @param s
+     * @return
+     */
     public static String getNAmount(int n, String s) {
 	String out = "";
 	for (int i = 0; i < n; i++) {

@@ -119,6 +119,11 @@ public class LImagePane extends LPanel {
 	setImage(ImageIO.read(url));
     }
 
+    /**
+     *
+     * @param path
+     * @throws IOException
+     */
     final public void setImage(String path) throws IOException {
 	setImage(ImageIO.read(new File(path)));
     }
@@ -168,7 +173,11 @@ public class LImagePane extends LPanel {
     public void allowAlpha(Boolean on) {
 	allowAlpha = on;
     }
-    
+
+    /**
+     *
+     * @param value
+     */
     public void setAlpha(float value) {
 	alpha = value;
     }
@@ -187,7 +196,11 @@ public class LImagePane extends LPanel {
 	revalidate();
 	repaint();
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public BufferedImage getImage() {
 	return img;
     }

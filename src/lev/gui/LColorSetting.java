@@ -22,6 +22,13 @@ public class LColorSetting extends LUserSetting<Color> {
     Color color;
     ArrayList<Runnable> actionListeners = new ArrayList<>(0);
 
+    /**
+     *
+     * @param text
+     * @param font
+     * @param fontColor
+     * @param pickerStart
+     */
     public LColorSetting(String text, Font font, Color fontColor, Color pickerStart) {
 	super(text, font, fontColor);
 	color = pickerStart;
@@ -88,6 +95,10 @@ public class LColorSetting extends LUserSetting<Color> {
 	boxOutline.height = boxOutline.width;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCenter() {
 	return titleLabel.getRight() + 3;
@@ -108,6 +119,10 @@ public class LColorSetting extends LUserSetting<Color> {
 	}
     }
 
+    /**
+     *
+     * @param r
+     */
     public void addActionListener(Runnable r) {
 	actionListeners.add(r);
     }

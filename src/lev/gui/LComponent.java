@@ -91,8 +91,12 @@ public class LComponent extends Container {
     public int getRight() {
 	return getX() + getWidth();
     }
-    
+
+    /**
+     *
+     * @return The ri
+     */
     public int getCenter() {
-	return getWidth() / 2;
+	return getX() + getWidth() / 2;
     }
 }

@@ -14,33 +14,56 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  *
+ * @param <T>
  * @author Justin Swanson
  */
 public class LList<T extends Object> extends LHelpComponent implements Iterable<T> {
-    
+
+    /**
+     *
+     */
     protected DefaultListModel<T> model;
+    /**
+     *
+     */
     protected JList<T> list;
+    /**
+     *
+     */
     protected JScrollPane scroll;
+    /**
+     *
+     */
     protected boolean unique;
+    /**
+     *
+     */
     protected Comparator compare;
+    /**
+     *
+     */
     static protected int spacing = 15;
-    
+
+    /**
+     *
+     * @param title
+     */
     public LList(String title) {
 	super(title);
-	
+
 	model = new DefaultListModel();
 	list = new JList(model);
 	scroll = new JScrollPane(list);
 	scroll.setVisible(true);
 	add(scroll);
     }
-    
+
     @Override
     public void setSize(int width, int height) {
 	super.setSize(width, height);
 	scroll.setSize(width, height);
     }
-    
+
     /**
      *
      * @param o
@@ -77,10 +100,14 @@ public class LList<T extends Object> extends LHelpComponent implements Iterable<
 	return list.getSelectedValue();
     }
 
+    /**
+     *
+     * @param index
+     */
     public void setSelectedElement(int index) {
 	list.setSelectedIndex(index);
     }
-    
+
     /**
      *
      */
@@ -112,7 +139,7 @@ public class LList<T extends Object> extends LHelpComponent implements Iterable<
     public void clear() {
 	model.clear();
     }
-    
+
     /**
      *
      * @param on

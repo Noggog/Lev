@@ -20,7 +20,6 @@ public abstract class LChannel {
      * Reads in one integer and moves the position up one
      *
      * @return
-     * @throws IOException
      */
     public int read() {
 	return extractInt(1);
@@ -33,7 +32,6 @@ public abstract class LChannel {
      * @param skip Bytes to skip
      * @param read Bytes to read and convert
      * @return Long representation of read bytes
-     * @throws IOException
      */
     final public long extractLong(final int skip, final int read) {
 	return Ln.arrayToLong(extract(skip, read));
@@ -45,7 +43,6 @@ public abstract class LChannel {
      * @param skip Bytes to skip
      * @param read Bytes to read and convert
      * @return String representation of read bytes
-     * @throws IOException
      */
     final public String extractString(final int skip, final int read) {
 	skip(skip);
@@ -73,12 +70,16 @@ public abstract class LChannel {
      * @param skip Bytes to skip
      * @param read Bytes to read and convert
      * @return Integer representation of read bytes
-     * @throws IOException
      */
     final public int extractInt(final int skip, final int read) {
 	return Ln.arrayToInt(extract(skip, read));
     }
 
+    /**
+     *
+     * @param read
+     * @return
+     */
     final public int extractInt(final int read) {
 	return extractInt(0, read);
     }
@@ -89,7 +90,6 @@ public abstract class LChannel {
      * @param skip Bytes to skip
      * @param read Bytes to read and convert
      * @return
-     * @throws IOException
      */
     final public int[] extractInts(final int skip, final int read) {
 	return Ln.toIntArray(extract(skip, read));
@@ -113,7 +113,6 @@ public abstract class LChannel {
      * @param skip
      * @param read
      * @return
-     * @throws IOException
      */
     final public int[] getInts(final int skip, final int read) {
 	int[] out = extractInts(skip, read);
@@ -159,12 +158,15 @@ public abstract class LChannel {
      * string.
      *
      * @return Next string in the file.
-     * @throws IOException
      */
     public String extractString() {
 	return Ln.arrayToString(extractUntil(0));
     }
 
+    /**
+     * Extracts the remaining data and returns it as a string.
+     * @return
+     */
     public String extractAllString() {
 	return Ln.arrayToString(extract(0, available()));
     }
@@ -174,7 +176,6 @@ public abstract class LChannel {
      * 13 -> 10)
      *
      * @return
-     * @throws IOException
      */
     public String extractLine() {
 	byte[] read1 = {10};
@@ -188,7 +189,6 @@ public abstract class LChannel {
      * @param delimiter char to stop reading at.
      * @param bufsize Buffer size to hold readings.
      * @return Byte array containing read data without delimiter.
-     * @throws IOException
      */
     public byte[] extractUntil(char delimiter, int bufsize) {
 	return extractUntil((int) delimiter, bufsize);
@@ -199,7 +199,6 @@ public abstract class LChannel {
      *
      * @param delimiter char to stop reading at.
      * @return Byte array containing read data without delimiter.
-     * @throws IOException
      */
     public byte[] extractUntil(char delimiter) {
 	return extractUntil((int) delimiter);
@@ -210,7 +209,6 @@ public abstract class LChannel {
      *
      * @param delimiter int to stop reading at.
      * @return Byte array containing read data without delimiter.
-     * @throws IOException
      */
     public byte[] extractUntil(int delimiter) {
 	byte[] delimiterB = {(byte) delimiter};
@@ -224,7 +222,6 @@ public abstract class LChannel {
      * @param skip
      * @param read
      * @return
-     * @throws IOException
      */
     public byte[] extract(final int skip, final int read) {
 	skip(skip);
@@ -237,7 +234,6 @@ public abstract class LChannel {
      *
      * @param amount
      * @return
-     * @throws IOException
      */
     public abstract byte[] extract(final int amount);
 
@@ -270,7 +266,6 @@ public abstract class LChannel {
      * @param delimiter Byte to stop reading at.
      * @param bufsize Buffer size to hold readings.
      * @return Byte array containing read data without delimiter.
-     * @throws IOException
      */
     public byte[] extractUntil(int delimiter, int bufsize) {
 	byte[] buffer = new byte[bufsize];
@@ -290,7 +285,6 @@ public abstract class LChannel {
      *
      * @param delimiters Byte arrays of patterns to stop reading at.
      * @return Byte array containing read data without delimiter.
-     * @throws IOException
      */
     public byte[] extractUntil(byte[]... delimiters) {
 	ArrayList<Byte> buffer = new ArrayList<>(50);
@@ -339,7 +333,6 @@ public abstract class LChannel {
      * Bumps the position the desired offset.
      *
      * @param offset Desired offset.
-     * @throws IOException
      */
     public void skip(final int offset) {
 	if (offset != 0) {
@@ -351,7 +344,6 @@ public abstract class LChannel {
      * Moves position back an amount of bytes.
      *
      * @param amount
-     * @throws IOException
      */
     public void jumpBack(int amount) {
 	skip(-amount);
@@ -360,7 +352,6 @@ public abstract class LChannel {
     /**
      *
      * @param pos
-     * @throws IOException
      */
     public abstract void pos(long pos);
 
@@ -376,7 +367,6 @@ public abstract class LChannel {
      *
      * @param targets
      * @return The target found, or the empty string if none found.
-     * @throws IOException
      */
     final public String scanTo(String... targets) {
 	LStringSearcher search = new LStringSearcher(targets);
@@ -396,7 +386,6 @@ public abstract class LChannel {
 
     /**
      *
-     * @throws IOException
      */
     public abstract void close();
 
@@ -406,6 +395,10 @@ public abstract class LChannel {
      */
     public abstract int available();
 
+    /**
+     *
+     * @return
+     */
     public Boolean isDone() {
 	return available() == 0;
     }

@@ -18,6 +18,15 @@ public class LSlider extends LUserSetting<Integer> {
 
     JSlider slider;
 
+    /**
+     *
+     * @param title
+     * @param font
+     * @param c
+     * @param min
+     * @param max
+     * @param cur
+     */
     public LSlider(String title, Font font, Color c, int min, int max, int cur) {
 	super(title, font, c);
 	slider = new JSlider(JSlider.HORIZONTAL, min, max, cur);
@@ -67,16 +76,24 @@ public class LSlider extends LUserSetting<Integer> {
     public void clearHighlight() {
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCenter() {
 	return titleLabel.getRight() + 3;
     }
-    
+
     @Override
     protected void addHelpHandler(boolean hoverListener) {
 	slider.addMouseListener(new HelpMouseHandler());
     }
 
+    /**
+     *
+     * @param c
+     */
     public void addChangeListener(ChangeListener c) {
 	slider.addChangeListener(c);
     }

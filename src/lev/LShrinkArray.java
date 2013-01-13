@@ -57,7 +57,11 @@ public class LShrinkArray extends LChannel {
 	}
 	buffer.limit(high);
     }
-    
+
+    /**
+     *
+     * @param rhs
+     */
     public LShrinkArray(final LShrinkArray rhs) {
 	this(rhs, rhs.available());
     }

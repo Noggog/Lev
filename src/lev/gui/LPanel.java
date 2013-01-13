@@ -24,6 +24,9 @@ public class LPanel extends JPanel implements Scrollable {
      * Spacing to be used between settings
      */
     protected int spacing = 12;
+    /**
+     *
+     */
     protected Align align = Align.Left;
 
     /**
@@ -91,11 +94,20 @@ public class LPanel extends JPanel implements Scrollable {
 	return new Dimension(300, 300);
     }
 
+    /**
+     *
+     * @param size
+     */
     public void remeasure(Dimension size) {
 	setSize(size);
     }
 
-    protected static AlphaComposite makeComposite(float alpha) {
+    /**
+     * Creates an alpha composite with the given transparency.
+     * @param alpha
+     * @return
+     */
+    protected static AlphaComposite makeAlphaComposite(float alpha) {
 	return (AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
     }
 
@@ -128,7 +140,7 @@ public class LPanel extends JPanel implements Scrollable {
 	    case Center:
 		if (c instanceof LComponent) {
 		    LComponent lc = (LComponent) c;
-		    c.setLocation(x - lc.getCenter(), y + spacing);
+		    c.setLocation(lc.getCenter(), y + spacing);
 		} else {
 		    c.setLocation(x - c.getWidth() / 2, y + spacing);
 		}
@@ -138,11 +150,19 @@ public class LPanel extends JPanel implements Scrollable {
 	return last;
     }
 
+    /**
+     * Sets placement of the component and then adds it.
+     * @param c
+     */
     public void placeAdd(Component c) {
 	setPlacement(c);
 	Add(c);
     }
 
+    /**
+     *
+     * @param align
+     */
     public void align(Align align) {
 	this.align = align;
     }
@@ -157,10 +177,22 @@ public class LPanel extends JPanel implements Scrollable {
 	last = new Point(last.x, c.getY() + c.getHeight());
     }
 
+    /**
+     *
+     */
     public enum Align {
 
+	/**
+	 *
+	 */
 	Left,
+	/**
+	 *
+	 */
 	Center,
+	/**
+	 *
+	 */
 	Right;
     }
 }

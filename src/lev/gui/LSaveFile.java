@@ -77,11 +77,19 @@ public abstract class LSaveFile {
 	maps.add(peekSave);
     }
 
+    /**
+     *
+     * @param location
+     */
     public LSaveFile(File location) {
 	this();
 	this.location = location;
     }
 
+    /**
+     *
+     * @param location
+     */
     public LSaveFile(String location) {
 	this(new File(location));
     }
@@ -293,7 +301,7 @@ public abstract class LSaveFile {
      * Adds a setting of type Color.
      *
      * @param type Enum to be associated with.
-     * @param f Default value to assign the setting.
+     * @param c
      * @param extraFlags
      */
     public void Add(Enum type, Color c, Boolean... extraFlags) {
@@ -323,10 +331,17 @@ public abstract class LSaveFile {
 	}
     }
 
+    /**
+     *Makes the savefile reaquire the settings for the specific enum.
+     * @param s Enum to update
+     */
     public void updateCurToGUI(Enum s) {
 	curSettings.get(s).set();
     }
 
+    /**
+     * Reverts the tied GUI to display the current settings.
+     */
     public void updateGUItoCur() {
 	revertTo(curSettings);
     }
@@ -375,15 +390,25 @@ public abstract class LSaveFile {
 	updateCurToGUI();
     }
 
+    /**
+     * Saves the current settings to a temporary cancel backup save
+     */
     public void saveToCancelSave() {
 	copyTo(curSettings, cancelSave);
     }
 
+    /**
+     * Reverts the current settings to the backup cancel save
+     */
     public void revertToCancel() {
 	copyTo(cancelSave, curSettings);
 	updateGUItoCur();
     }
 
+    /**
+     * Reverts the current settings to the given map.
+     * @param in
+     */
     public void revertTo(Map<Enum, Setting> in) {
 	for (Setting s : curSettings.values()) {
 	    if (s.tie != null) {
@@ -433,6 +458,11 @@ public abstract class LSaveFile {
 	copyTo(in, peekSave);
     }
 
+    /**
+     * Checks the flag of each setting at the given index, and returns the AND logic.
+     * @param index
+     * @return
+     */
     public boolean checkFlagAnd(int index) {
 	ArrayList<Setting> modified = getModifiedSettings();
 	for (Setting s : modified) {
@@ -443,6 +473,11 @@ public abstract class LSaveFile {
 	return true;
     }
 
+    /**
+     * Checks the flag of each setting at the given index, and returns the OR logic.
+     * @param index
+     * @return
+     */
     public boolean checkFlagOr(int index) {
 	ArrayList<Setting> modified = getModifiedSettings();
 	for (Setting s : modified) {
@@ -453,6 +488,12 @@ public abstract class LSaveFile {
 	return false;
     }
 
+    /**
+     * Checks the flag of given setting at the given index.
+     * @param s
+     * @param index
+     * @return
+     */
     public boolean checkFlag(Enum s, int index) {
 	return curSettings.get(s).extraFlags[index];
     }
@@ -511,14 +552,29 @@ public abstract class LSaveFile {
 	return curSettings.get(s).getBool();
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public Color getColor(Enum s) {
 	return curSettings.get(s).getColor();
     }
-    
+
+    /**
+     *
+     * @param s
+     * @return
+     */
     public Enum getEnum(Enum s) {
 	return curSettings.get(s).getEnum();
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public float getFloat(Enum s) {
 	return curSettings.get(s).getFloat();
     }
@@ -533,18 +589,38 @@ public abstract class LSaveFile {
 	return curSettings.get(s).getStrings();
     }
 
+    /**
+     *
+     * @param e
+     * @param s
+     */
     public void setStr(Enum e, String s) {
 	curSettings.get(e).setTo(s);
     }
 
+    /**
+     *
+     * @param e
+     * @param i
+     */
     public void setInt(Enum e, int i) {
 	curSettings.get(e).setTo(i);
     }
 
+    /**
+     *
+     * @param e
+     * @param c
+     */
     public void setColor(Enum e, Color c) {
 	curSettings.get(e).setTo(c);
     }
 
+    /**
+     *
+     * @param e
+     * @param b
+     */
     public void setBool(Enum e, boolean b) {
 	curSettings.get(e).setTo(b);
     }

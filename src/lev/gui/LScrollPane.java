@@ -32,6 +32,9 @@ public class LScrollPane extends JScrollPane {
 	getViewport().setOpaque(false);
     }
 
+    /**
+     *
+     */
     public final void scrollToTop() {
 	SwingUtilities.invokeLater(new Runnable() {
 	    public void run() {

@@ -14,19 +14,33 @@ import javax.swing.text.html.StyleSheet;
  */
 public class LHTMLPane extends LEditorPane {
 
+    /**
+     *
+     */
     public LHTMLPane () {
 	super();
 	pane.setContentType("text/html");
     }
 
+    /**
+     *
+     * @return
+     */
     public HTMLDocument getDocument() {
 	return (HTMLDocument) pane.getDocument();
     }
 
+    /**
+     *
+     * @return
+     */
     public StyleSheet getStyleSheet() {
 	return getDocument().getStyleSheet();
     }
 
+    /**
+     *
+     */
     public void transparentBackground() {
 	pane.setBackground(new Color(255, 255, 255, 0)) ;
     }

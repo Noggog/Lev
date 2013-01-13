@@ -67,6 +67,9 @@ public class LProgressBar extends LComponent implements LProgressBarInterface {
 	setStatus(reason);
     }
 
+    /**
+     *
+     */
     public void addShadow() {
 	status.addShadow();
     }
@@ -175,6 +178,10 @@ public class LProgressBar extends LComponent implements LProgressBarInterface {
 	}
     }
 
+    /**
+     *
+     * @param status
+     */
     @Override
     public void setStatusNumbered(final String status) {
 	if (!pause) {

@@ -15,8 +15,17 @@ import java.util.logging.Logger;
  */
 public class LFileChannel extends LChannel {
 
+    /**
+     *
+     */
     protected FileInputStream iStream;
+    /**
+     *
+     */
     protected FileChannel iChannel;
+    /**
+     *
+     */
     protected long end;
 
     /**
@@ -28,7 +37,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @param path Path to open a channel to.
-     * @throws IOException
      */
     public LFileChannel(final String path) {
 	openFile(path);
@@ -37,7 +45,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @param f File to open a channel to.
-     * @throws IOException
      */
     public LFileChannel(final File f) {
 	openFile(f);
@@ -47,12 +54,16 @@ public class LFileChannel extends LChannel {
      *
      * @param rhs
      * @param allocation
-     * @throws IOException
      */
     public LFileChannel(LFileChannel rhs, long allocation) {
 	slice(rhs, allocation);
     }
-    
+
+    /**
+     *
+     * @param rhs
+     * @param allocation
+     */
     protected void slice(LFileChannel rhs, long allocation) {
 	LFileChannel fc = (LFileChannel) rhs;
 	iStream = fc.iStream;
@@ -63,7 +74,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @param path Path to open a channel to.
-     * @throws IOException 
      */
     public void openFile(final String path) {
 	try {
@@ -78,7 +88,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @param f File to open a channel to.
-     * @throws IOException
      */
     public void openFile(final File f) {
 	openFile(f.getPath());
@@ -88,7 +97,6 @@ public class LFileChannel extends LChannel {
      * Reads in a byte and moves forward one position in the file.
      *
      * @return The next int in the file.
-     * @throws IOException
      */
     @Override
     public int read(){
@@ -106,7 +114,6 @@ public class LFileChannel extends LChannel {
      * @param skip Bytes to skip
      * @param read Bytes to read and convert
      * @return ByteBuffer containing read bytes.
-     * @throws IOException
      */
     public ByteBuffer extractByteBuffer(int skip, int read) {
 	super.skip(skip);
@@ -123,7 +130,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @param pos Position to move to.
-     * @throws IOException
      */
     @Override
     public void pos(long pos) {
@@ -137,7 +143,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @return Current position.
-     * @throws IOException
      */
     @Override
     public long pos() {
@@ -152,7 +157,6 @@ public class LFileChannel extends LChannel {
     /**
      * Closes streams.
      *
-     * @throws IOException
      */
     @Override
     final public void close() {
@@ -169,7 +173,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @return Bytes left to read in the file.
-     * @throws IOException
      */
     @Override
     final public int available() {
@@ -179,7 +182,6 @@ public class LFileChannel extends LChannel {
     /**
      *
      * @return
-     * @throws IOException
      */
     @Override
     public Boolean isDone() {
@@ -190,7 +192,6 @@ public class LFileChannel extends LChannel {
      *
      * @param amount
      * @return
-     * @throws IOException
      */
     @Override
     public byte[] extract(int amount) {

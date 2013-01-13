@@ -24,7 +24,13 @@ public abstract class LHelpComponent extends LComponent {
     public LHelpPanel help = null;
     String helpPrefix = "";
     boolean followPos = true;
+    /**
+     *
+     */
     public Enum saveTie;
+    /**
+     *
+     */
     public LSaveFile save;
     /**
      * The title to put at the top of the help panel.
@@ -194,10 +200,18 @@ public abstract class LHelpComponent extends LComponent {
 	}
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasHelp() {
 	return getHelp() != null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHelp() {
 	return save.helpInfo.get(saveTie);
     }

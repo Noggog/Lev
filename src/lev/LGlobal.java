@@ -14,6 +14,10 @@ public class LGlobal {
 
     static Inflater inflater;
 
+    /**
+     *
+     * @return A singleton inflater.
+     */
     public static Inflater getInflater() {
 	if (inflater == null) {
 	    inflater = new Inflater();

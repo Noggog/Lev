@@ -9,6 +9,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.plaf.basic.BasicComboBoxEditor;
 
+/**
+ * Creates a combo box that auto fills from a given list.
+ */
 public class JAutoComboBox extends JComboBox {
 
     private JAutoComboBox.AutoTextFieldEditor autoTextFieldEditor;
@@ -25,6 +28,10 @@ public class JAutoComboBox extends JComboBox {
 	}
     }
 
+    /**
+     *
+     * @param list
+     */
     public JAutoComboBox(java.util.List list) {
 	isFired = false;
 	autoTextFieldEditor = new JAutoComboBox.AutoTextFieldEditor(list);
@@ -39,26 +46,50 @@ public class JAutoComboBox extends JComboBox {
 	setEditor(autoTextFieldEditor);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isCaseSensitive() {
 	return autoTextFieldEditor.getAutoTextFieldEditor().isCaseSensitive();
     }
 
+    /**
+     *
+     * @param flag
+     */
     public void setCaseSensitive(boolean flag) {
 	autoTextFieldEditor.getAutoTextFieldEditor().setCaseSensitive(flag);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isStrict() {
 	return autoTextFieldEditor.getAutoTextFieldEditor().isStrict();
     }
 
+    /**
+     *
+     * @param flag
+     */
     public void setStrict(boolean flag) {
 	autoTextFieldEditor.getAutoTextFieldEditor().setStrict(flag);
     }
 
+    /**
+     *
+     * @return
+     */
     public java.util.List getDataList() {
 	return autoTextFieldEditor.getAutoTextFieldEditor().getDataList();
     }
 
+    /**
+     *
+     * @param list
+     */
     public void setDataList(java.util.List list) {
 	autoTextFieldEditor.getAutoTextFieldEditor().setDataList(list);
 	setModel(new DefaultComboBoxModel(list.toArray()));

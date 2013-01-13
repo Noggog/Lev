@@ -28,14 +28,19 @@ public interface LProgressBarInterface {
      * @param status String to set as the status of the progress bar.
      */
     void setStatus(String status);
-
     /**
-     * Updates the progress bar's current value, max value, and status text.
+     * Updates the progress bar status text to display: <br>
+     * ([cur]/[max]) [status]
      * @param cur
      * @param max
      * @param status
      */
     void setStatusNumbered(int cur, int max, String status);
+    /**
+     * Updates the progress bar status text to display the current step in the form of: <br>
+     * ([cur]/[max]) [status]
+     * @param status
+     */
     void setStatusNumbered(String status);
     /**
      * Increments the progress bar one unit.

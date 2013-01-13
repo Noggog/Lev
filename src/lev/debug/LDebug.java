@@ -109,6 +109,10 @@ public class LDebug {
 	}
     }
 
+    /**
+     * Sets the spacing between the left side of the debug log and the contents.
+     * @param spacing
+     */
     public void setSpacing(int spacing) {
 	this.spacing = spacing;
     }
@@ -237,7 +241,6 @@ public class LDebug {
     /**
      * Closes debug logs and flushes their buffers.
      *
-     * @throws IOException
      */
     public static void wrapUp() {
 	on = true;

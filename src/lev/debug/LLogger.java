@@ -262,6 +262,9 @@ public class LLogger {
 	asynced.openDebug(debugPath + filePath, 50);
     }
 
+    /**
+     * Closes all associated Debug files.
+     */
     public void close() {
 	if (main != null) {
 	    main.closeDebugFile();

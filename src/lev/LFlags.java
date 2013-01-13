@@ -29,6 +29,10 @@ public class LFlags implements Serializable {
 	set(inFlags);
     }
 
+    /**
+     *
+     * @param rhs
+     */
     public LFlags(LFlags rhs) {
 	flags = new byte[rhs.flags.length];
 	System.arraycopy(rhs.flags, 0, flags, 0, rhs.flags.length);
@@ -66,6 +70,10 @@ public class LFlags implements Serializable {
 
     }
 
+    /**
+     *
+     * @return Index of the first true flag.
+     */
     public final int getFirstTrue() {
 	for (int i = 0; i < length() * 8; i++) {
 	    if (get(i)) {

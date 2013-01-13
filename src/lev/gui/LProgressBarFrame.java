@@ -17,11 +17,29 @@ import lev.gui.resources.LImages;
  */
 public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
 
+    /**
+     *
+     */
     protected LProgressBar bar;
+    /**
+     *
+     */
     protected LLabel title;
+    /**
+     *
+     */
     protected Dimension correctLocation = new Dimension(0, 0);
+    /**
+     *
+     */
     protected Dimension GUIsize = new Dimension(250, 100);
+    /**
+     *
+     */
     protected LImagePane backgroundPanel;
+    /**
+     *
+     */
     protected JFrame guiRef;
     /**
      * JFrame operation to execute when the window is closed.
@@ -179,7 +197,11 @@ public class LProgressBarFrame extends JFrame implements LProgressBarInterface {
     public void setStatusNumbered(int min, int max, String status) {
 	bar.setStatusNumbered(min, max, status);
     }
-    
+
+    /**
+     *
+     * @param status
+     */
     @Override
     public void setStatusNumbered(String status) {
 	bar.setStatusNumbered(status);

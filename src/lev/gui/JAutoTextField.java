@@ -14,6 +14,9 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
+/**
+ * Creates a text field that auto fills from a given list.
+ */
 public class JAutoTextField extends JTextField {
 
     private List dataList;
@@ -21,6 +24,9 @@ public class JAutoTextField extends JTextField {
     private boolean isStrict;
     private JAutoComboBox autoComboBox;
 
+    /**
+     *
+     */
     protected class AutoDocument extends PlainDocument {
 
 	@Override
@@ -79,6 +85,10 @@ public class JAutoTextField extends JTextField {
 	}
     }
 
+    /**
+     *
+     * @param list
+     */
     public JAutoTextField(List list) {
 	isCaseSensitive = false;
 	isStrict = true;
@@ -143,26 +153,50 @@ public class JAutoTextField extends JTextField {
 	}
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isCaseSensitive() {
 	return isCaseSensitive;
     }
 
+    /**
+     *
+     * @param flag
+     */
     public void setCaseSensitive(boolean flag) {
 	isCaseSensitive = flag;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isStrict() {
 	return isStrict;
     }
 
+    /**
+     *
+     * @param flag
+     */
     public void setStrict(boolean flag) {
 	isStrict = flag;
     }
 
+    /**
+     *
+     * @return
+     */
     public List getDataList() {
 	return dataList;
     }
 
+    /**
+     *
+     * @param list
+     */
     public void setDataList(List list) {
 	if (list == null) {
 	    throw new IllegalArgumentException("values can not be null");

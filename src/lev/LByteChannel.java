@@ -25,8 +25,7 @@ public class LByteChannel extends LChannel {
 
     /**
      *
-     * @param input 
-     * @throws FileNotFoundException
+     * @param input
      */
     public LByteChannel(final byte[] input) {
 	openStream(input);
@@ -45,7 +44,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @param in
-     * @throws IOException
      */
     public final void openStream(LShrinkArray in) {
 	openStream(in.extractAllBytes());
@@ -54,7 +52,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @return
-     * @throws IOException
      */
     @Override
     public int read() {
@@ -64,7 +61,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @param pos
-     * @throws IOException
      */
     @Override
     public void pos(long pos) {
@@ -74,7 +70,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @return
-     * @throws IOException
      */
     @Override
     public long pos() {
@@ -83,7 +78,6 @@ public class LByteChannel extends LChannel {
 
     /**
      *
-     * @throws IOException
      */
     @Override
     public void close() {
@@ -93,7 +87,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @return
-     * @throws IOException
      */
     @Override
     public int available() {
@@ -103,7 +96,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @return
-     * @throws IOException
      */
     @Override
     public Boolean isDone() {
@@ -118,7 +110,6 @@ public class LByteChannel extends LChannel {
     /**
      *
      * @param amount
-     * @throws IOException
      */
     @Override
     public void jumpBack(int amount) {
@@ -129,7 +120,6 @@ public class LByteChannel extends LChannel {
      *
      * @param read
      * @return
-     * @throws IOException
      */
     @Override
     public byte[] extract(int read) {

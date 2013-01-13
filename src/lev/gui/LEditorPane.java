@@ -18,6 +18,9 @@ public class LEditorPane extends LComponent {
 
     JEditorPane pane;
 
+    /**
+     *
+     */
     public LEditorPane() {
 	pane = new JEditorPane();
 	pane.setEditable(false);
@@ -26,18 +29,34 @@ public class LEditorPane extends LComponent {
 	add(pane);
     }
 
+    /**
+     *
+     * @param h
+     */
     public void addHyperLinkListener(HyperlinkListener h) {
 	pane.addHyperlinkListener(h);
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setContentType(String s) {
 	pane.setContentType(s);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getText() {
 	return pane.getText();
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setText(String s) {
 	pane.setText(s);
     }
@@ -53,6 +72,10 @@ public class LEditorPane extends LComponent {
 	pane.setSize(x, y);
     }
 
+    /**
+     *
+     * @param x
+     */
     public void setSize(int x) {
 	setSize(x, getHeight(x));
     }
@@ -62,6 +85,9 @@ public class LEditorPane extends LComponent {
 	pane.setFont(f);
     }
 
+    /**
+     *
+     */
     public void honorDisplayProperties() {
 	pane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
     }
@@ -71,6 +97,10 @@ public class LEditorPane extends LComponent {
 	return pane.getPreferredSize();
     }
 
+    /**
+     *
+     * @param maxWidth
+     */
     public void compactContent(int maxWidth) {
 	setSize(maxWidth);
 	if (getPreferredSize().width < getWidth()) {
@@ -78,6 +108,11 @@ public class LEditorPane extends LComponent {
 	}
     }
 
+    /**
+     *
+     * @param width
+     * @return
+     */
     public int getHeight(int width) {
 	View v = pane.getUI().getRootView(pane);
 	v.setSize(width, Integer.MAX_VALUE);
@@ -85,6 +120,11 @@ public class LEditorPane extends LComponent {
 	return preferredHeight;
     }
 
+    /**
+     *
+     * @param height
+     * @return
+     */
     public int getWidth(int height) {
 	View v = pane.getUI().getRootView(pane);
 	v.setSize(Integer.MAX_VALUE, height);
@@ -92,10 +132,14 @@ public class LEditorPane extends LComponent {
 	return prefWidth;
     }
 
+    /**
+     *
+     * @param on
+     */
     public void setOpaque(boolean on) {
 	pane.setOpaque(on);
     }
-    
+
     @Override
     public void setEnabled(boolean on) {
 	pane.setEnabled(on);

@@ -34,7 +34,7 @@ public class LHelpPanel extends LPanel {
      * @param titleFont
      * @param titleC
      * @param contentC
-     * @param leftArrow
+     * @param arrow
      * @param arrowX
      */
     public LHelpPanel(Rectangle bounds, Font titleFont, Color titleC, Color contentC, Image arrow, int arrowX) {
@@ -104,6 +104,10 @@ public class LHelpPanel extends LPanel {
 	setting.setFont(f);
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setDefaultY(int y) {
 	spacing = y;
     }
@@ -117,10 +121,19 @@ public class LHelpPanel extends LPanel {
 	setting.setSize(setting.getPreferredSize());
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setTitleOffset(int y) {
 	textOffset = y;
     }
 
+    /**
+     * Sets the X offset for the title and the help text.
+     * @param title
+     * @param helpText
+     */
     public void setXOffsets(int title, int helpText) {
 	setting.setLocation(title, setting.getY());
 	help.setLocation(helpText, help.getY());

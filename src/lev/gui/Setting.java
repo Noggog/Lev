@@ -37,7 +37,7 @@ public abstract class Setting<T> {
      *
      * @param title_
      * @param data_
-     * @param extraFlags 
+     * @param extraFlags
      */
     public Setting(String title_, T data_, Boolean[] extraFlags) {
 	this(title_, extraFlags);
@@ -77,7 +77,11 @@ public abstract class Setting<T> {
     public Color getColor() {
 	return (Color) data;
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public Enum getEnum() {
 	return (Enum) data;
     }

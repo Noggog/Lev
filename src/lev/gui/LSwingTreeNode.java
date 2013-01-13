@@ -40,10 +40,19 @@ public class LSwingTreeNode extends DefaultMutableTreeNode {
 	return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<LSwingTreeNode> getAllObjects() {
 	return getAllObjects(false);
     }
 
+    /**
+     *
+     * @param recursive
+     * @return
+     */
     public ArrayList<LSwingTreeNode> getAllObjects(boolean recursive) {
 	ArrayList<LSwingTreeNode> out = new ArrayList<>();
 	if (children != null) {
@@ -58,6 +67,10 @@ public class LSwingTreeNode extends DefaultMutableTreeNode {
 	return out;
     }
 
+    /**
+     *
+     * @param depth
+     */
     public void print(int depth) {
 	for (Object o : getAllObjects()) {
 	    if (o instanceof LSwingTreeNode) {
@@ -67,6 +80,11 @@ public class LSwingTreeNode extends DefaultMutableTreeNode {
 	}
     }
 
+    /**
+     * Adds the node to the children of this current node.  If the parameter node
+     * exists already, it merges their children.
+     * @param node Node to merge into the current node
+     */
     public void mergeIn(LSwingTreeNode node) {
 	LSwingTreeNode existing = get(node);
 	if (existing != null) {

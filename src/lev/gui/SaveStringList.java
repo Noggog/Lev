@@ -5,8 +5,6 @@
 package lev.gui;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -32,7 +30,7 @@ public class SaveStringList extends Setting<ArrayList<String>> {
 	int num = 0;
 	for (String f : data) {
 	    if (!f.equals("")) {
-		out += f + delimiter + "\n" ;
+		out += f + delimiter + "\n";
 		num++;
 	    }
 	}
@@ -44,7 +42,10 @@ public class SaveStringList extends Setting<ArrayList<String>> {
 	String[] split = in.split(delimiter);
 	data = new ArrayList<>(split.length);
 	for (int i = 0; i < split.length; i++) {
-	    data.add(split[i]);
+	    split[i] = split[i].trim();
+	    if (!"".equals(split[i])) {
+		data.add(split[i]);
+	    }
 	}
     }
 

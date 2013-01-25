@@ -587,7 +587,7 @@ public abstract class LSaveFile {
      * @return
      */
     public ArrayList<String> getStrings(Enum s) {
-	return new ArrayList<String>(curSettings.get(s).getStrings());
+	return new ArrayList<>(curSettings.get(s).getStrings());
     }
 
     /**

@@ -140,6 +140,10 @@ public class LShrinkArray extends LChannel {
 	}
 	return new byte[0];
     }
+    
+    public byte[] extractUntil(String delimiter) {
+	return extractUntil(Ln.toByteArray(delimiter));
+    }
 
     /**
      * Extracts specified number of bytes. <br> Bumps the lower bound up so that

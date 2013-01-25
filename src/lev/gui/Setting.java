@@ -97,6 +97,14 @@ public abstract class Setting<T> {
 
     /**
      *
+     * @return
+     */
+    public Double getDouble() {
+	return (Double) data;
+    }
+
+    /**
+     *
      * @return Returns the value as an int.  Could fail.
      */
     public Integer getInt() {

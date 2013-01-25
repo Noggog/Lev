@@ -310,6 +310,17 @@ public abstract class LSaveFile {
     }
 
     /**
+     * Adds a setting of type double.
+     *
+     * @param type Enum to be associated with.
+     * @param d Default value to assign the setting.
+     * @param extraFlags
+     */
+    public void Add(Enum type, Double d, Boolean... extraFlags) {
+	Add(type, new SaveDouble(type.toString(), d, extraFlags));
+    }
+
+    /**
      * Copies one map of settings to another. For reverting current settings to
      * default, for example.
      *

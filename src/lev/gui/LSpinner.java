@@ -77,7 +77,9 @@ public class LSpinner extends LUserSetting<Integer> {
 	editor.getTextField().addFocusListener(new HelpFocusHandler());
 	if (hoverListener) {
 	    MouseListener m = new HelpMouseHandler();
-	    titleLabel.addMouseListener(m);
+	    if (titleLabel != null) {
+		titleLabel.addMouseListener(m);
+	    }
 	    editor.getTextField().addMouseListener(m);
 	    for (Component c : spinner.getComponents()) {
 		c.addMouseListener(m);

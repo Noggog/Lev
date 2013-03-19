@@ -4,8 +4,8 @@
  */
 package lev;
 
-import java.util.Map.Entry;
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * A map which has values which are ArrayLists of type V.
@@ -13,7 +13,7 @@ import java.util.*;
  * @param <V>
  * @author Justin Swanson
  */
-public class LMergeMap<K, V> {
+public class LMergeMap<K, V> implements Iterable<V> {
 
     Map<K, ArrayList<V>> map;
     boolean sorted;
@@ -198,7 +198,7 @@ public class LMergeMap<K, V> {
      * @return All values in the mergemap.
      */
     public ArrayList<V> valuesFlat() {
-	ArrayList<V> out = new ArrayList<V>();
+	ArrayList<V> out = new ArrayList<>();
 	for (ArrayList<V> vals : map.values()) {
 	    out.addAll(vals);
 	}
@@ -241,7 +241,7 @@ public class LMergeMap<K, V> {
 
     /**
      *
-     * @return 
+     * @return
      */
     public ArrayList<String> print() {
 	ArrayList<String> out = new ArrayList<>();
@@ -252,6 +252,11 @@ public class LMergeMap<K, V> {
 	    }
 	}
 	return out;
+    }
+
+    @Override
+    public Iterator<V> iterator() {
+	return valuesFlat().iterator();
     }
 
 }

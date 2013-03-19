@@ -645,4 +645,12 @@ public abstract class LSaveFile {
     public void setStrings(Enum e, ArrayList<String> strs) {
 	curSettings.get(e).setTo(strs);
     }
+    
+    public void addString(Enum e, String s) {
+	curSettings.get(e).getStrings().add(s);
+    }
+    
+    public void removeString(Enum e, String s) {
+	curSettings.get(e).getStrings().remove(s);
+    }
 }

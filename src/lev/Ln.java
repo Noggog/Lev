@@ -668,7 +668,7 @@ public class Ln {
      * @return
      */
     public static String getFileType(File f) {
-	if (f.isFile() && f.getName().indexOf(".") != -1) {
+	if (f.getName().indexOf(".") != -1) {
 	    return f.getName().substring(f.getName().lastIndexOf(".") + 1);
 	} else {
 	    return "";
@@ -1694,7 +1694,24 @@ public class Ln {
     public static String standardizeFilePath(String filePath) {
 	return filePath.replace("\\", "/");
     }
+    
+    public static int indexOfContains(ArrayList<String> list, String s) {
+	for (int i = 0 ; i < list.size() ; i++) {
+	    if (list.get(i).contains(s)) {
+		return i;
+	    }
+	}
+	return -1;
+    }
 
+    public static boolean contains(ArrayList<String> list, String s) {
+	return -1 != indexOfContains(list, s);
+    }
+    
+    public static boolean containsEqualsIgnoreCase(ArrayList<String> list, String s) {
+	return -1 != indexOfIgnoreCase(list, s);
+    }
+    
     /**
      * A contains() check that's case insensitive.
      *

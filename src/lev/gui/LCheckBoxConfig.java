@@ -21,11 +21,11 @@ public class LCheckBoxConfig extends LUserSetting {
     /**
      *
      */
-    public LSpecialCheckBox cbox;
+    protected LSpecialCheckBox cbox;
     /**
      *
      */
-    public LButton button;
+    protected LButton button;
     /**
      *
      */

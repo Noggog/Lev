@@ -19,7 +19,7 @@ import javax.swing.JButton;
  */
 public class LButton extends LHelpComponent {
 
-    JButton button;
+    protected JButton button;
 
     /**
      *

@@ -20,10 +20,9 @@ import javax.swing.text.*;
  */
 public class LTextArea extends LComponent {
 
-    static String header = "Text Pane";
-    JScrollPane scroll;
-    JTextArea area;
-    Document doc;
+    protected JScrollPane scroll;
+    protected JTextArea area;
+    protected Document doc;
 
     /**
      *

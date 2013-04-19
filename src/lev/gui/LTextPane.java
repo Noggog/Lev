@@ -20,7 +20,6 @@ import javax.swing.text.*;
  */
 public class LTextPane extends LComponent {
 
-    static String header = "Text Pane";
     /**
      *
      */

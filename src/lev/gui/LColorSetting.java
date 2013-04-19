@@ -17,10 +17,10 @@ import javax.swing.JColorChooser;
  */
 public class LColorSetting extends LUserSetting<Color> {
 
-    Rectangle box = new Rectangle(0, 0, 12, 12);
-    Rectangle boxOutline;
-    Color color;
-    ArrayList<Runnable> actionListeners = new ArrayList<>(0);
+    protected Rectangle box = new Rectangle(0, 0, 12, 12);
+    protected Rectangle boxOutline;
+    protected Color color;
+    protected ArrayList<Runnable> actionListeners = new ArrayList<>(0);
 
     /**
      *

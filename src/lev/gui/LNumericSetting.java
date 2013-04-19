@@ -17,7 +17,7 @@ import javax.swing.event.ChangeListener;
  */
 public class LNumericSetting extends LUserSetting<Integer> {
 
-    LSpinner setting;
+    protected LSpinner setting;
 
     /**
      *
@@ -144,7 +144,7 @@ public class LNumericSetting extends LUserSetting<Integer> {
     }
 
     /**
-     * 
+     *
      * @param hoverListener
      */
     @Override

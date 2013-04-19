@@ -28,30 +28,30 @@ import javax.swing.JOptionPane;
  */
 public abstract class LSaveFile {
 
-    File location;
+    protected File location;
     /**
      * List containing default, save, temp, and current setting maps.
      */
-    ArrayList<Map<Enum, Setting>> maps = new ArrayList<>();
+    protected ArrayList<Map<Enum, Setting>> maps = new ArrayList<>();
     /**
      * Stores the default values for each setting.
      */
-    public Map<Enum, Setting> defaultSettings = new TreeMap<>();
+    protected Map<Enum, Setting> defaultSettings = new TreeMap<>();
     /**
      * Stores the previously saved settings of the current end user.
      */
-    public Map<Enum, Setting> saveSettings = new TreeMap<>();
+    protected Map<Enum, Setting> saveSettings = new TreeMap<>();
     /**
      * Stores the current settings displayed on the GUI.
      */
-    public Map<Enum, Setting> curSettings = new TreeMap<>();
-    Map<Enum, Setting> cancelSave = new TreeMap<>();
-    Map<Enum, Setting> peekSave = new TreeMap<>();
+    protected Map<Enum, Setting> curSettings = new TreeMap<>();
+    protected Map<Enum, Setting> cancelSave = new TreeMap<>();
+    protected Map<Enum, Setting> peekSave = new TreeMap<>();
     /**
      * Map containing the help text associated with settings in the saveFile.
      */
-    public Map<Enum, String> helpInfo = new TreeMap<>();
-    boolean initialized = false;
+    protected Map<Enum, String> helpInfo = new TreeMap<>();
+    protected boolean initialized = false;
 
     /**
      * Ties the LUserSetting to the Enum key
@@ -645,11 +645,11 @@ public abstract class LSaveFile {
     public void setStrings(Enum e, ArrayList<String> strs) {
 	curSettings.get(e).setTo(strs);
     }
-    
+
     public void addString(Enum e, String s) {
 	curSettings.get(e).getStrings().add(s);
     }
-    
+
     public void removeString(Enum e, String s) {
 	curSettings.get(e).getStrings().remove(s);
     }

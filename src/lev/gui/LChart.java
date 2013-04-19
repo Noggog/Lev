@@ -22,9 +22,9 @@ public class LChart extends JPanel {
     /**
      *
      */
-    public JFreeChart chart;
-    ChartPanel cPanel;
-    LLabel title;
+    protected JFreeChart chart;
+    protected ChartPanel cPanel;
+    protected LLabel title;
 
     /**
      *

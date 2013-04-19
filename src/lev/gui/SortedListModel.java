@@ -9,13 +9,13 @@ import javax.swing.AbstractListModel;
 
 /**
  *
- * @param <T> 
+ * @param <T>
  * @author Justin Swanson
  */
 public class SortedListModel<T extends Object> extends AbstractListModel {
 
     // Define a SortedSet
-    SortedSet<T> model;
+    protected SortedSet<T> model;
 
     /**
      *

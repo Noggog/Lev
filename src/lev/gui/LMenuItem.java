@@ -14,7 +14,7 @@ import javax.swing.JMenuItem;
  */
 public class LMenuItem extends LHelpComponent {
 
-    JMenuItem menuItem;
+    protected JMenuItem menuItem;
 
     /**
      *
@@ -43,7 +43,7 @@ public class LMenuItem extends LHelpComponent {
     }
 
     /**
-     * 
+     *
      * @param a
      */
     public void addActionListener (ActionListener a) {

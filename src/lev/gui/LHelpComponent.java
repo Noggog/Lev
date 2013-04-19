@@ -21,25 +21,25 @@ public abstract class LHelpComponent extends LComponent {
     /**
      * The target help panel.
      */
-    public LHelpPanel help = null;
-    String helpPrefix = "";
-    boolean followPos = true;
+    protected LHelpPanel help = null;
+    protected String helpPrefix = "";
+    protected boolean followPos = true;
     /**
      *
      */
-    public Enum saveTie;
+    protected Enum saveTie;
     /**
      *
      */
-    public LSaveFile save;
+    protected LSaveFile save;
     /**
      * The title to put at the top of the help panel.
      */
-    public String title;
+    protected String title;
     /**
      * Amount to vertically offset the help text.
      */
-    public int helpYoffset = 0;
+    protected int helpYoffset = 0;
 
     /**
      *

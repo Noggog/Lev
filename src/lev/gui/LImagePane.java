@@ -21,11 +21,11 @@ import javax.imageio.ImageIO;
  */
 public class LImagePane extends LPanel {
 
-    private BufferedImage img;
-    int IMG_WIDTH = 0;
-    int IMG_HEIGHT = 0;
-    boolean allowAlpha = true;
-    float alpha = 1;
+    protected BufferedImage img;
+    protected int IMG_WIDTH = 0;
+    protected int IMG_HEIGHT = 0;
+    protected boolean allowAlpha = true;
+    protected float alpha = 1;
 
     /**
      * Creates an image pane with no set image.

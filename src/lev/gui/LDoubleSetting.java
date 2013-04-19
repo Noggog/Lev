@@ -13,7 +13,7 @@ import javax.swing.event.ChangeListener;
 
 public class LDoubleSetting extends LUserSetting<Double> {
 
-    LDoubleSpinner setting;
+    protected LDoubleSpinner setting;
 
     public LDoubleSetting(String text, Font font, Color c, double min, double max, double step) {
         super(text, font, c);

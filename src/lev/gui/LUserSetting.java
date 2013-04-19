@@ -26,7 +26,7 @@ public abstract class LUserSetting<T> extends LHelpComponent {
     /**
      *
      */
-    public LLabel titleLabel;
+    protected LLabel titleLabel;
 
     /**
      * Creates a user setting component that doesn't use the label.

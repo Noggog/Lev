@@ -23,8 +23,8 @@ import javax.swing.event.ChangeListener;
  */
 public class LCheckBox extends LUserSetting<Boolean> {
 
-    private JCheckBox cbox;
-    ArrayList<LComponent> underlings = new ArrayList<>(0);
+    protected JCheckBox cbox;
+    protected ArrayList<LComponent> underlings = new ArrayList<>(0);
 
     /**
      *

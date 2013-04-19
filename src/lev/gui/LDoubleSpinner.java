@@ -17,7 +17,7 @@ import javax.swing.event.ChangeListener;
 
 public class LDoubleSpinner extends LUserSetting<Double> {
 
-    JSpinner spinner;
+    protected JSpinner spinner;
 
     public LDoubleSpinner(String title, double init, double min, double max, double step, int width) {
         super(title);

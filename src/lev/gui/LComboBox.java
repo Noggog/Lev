@@ -16,14 +16,14 @@ import lev.gui.LHelpComponent.HelpFocusHandler;
 
 /**
  *
- * @param <T> 
+ * @param <T>
  * @author Justin Swanson
  */
 public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 
-    JComboBox<T> box;
-    T previous;
-    LButton enterButton;
+    protected JComboBox<T> box;
+    protected T previous;
+    protected LButton enterButton;
 
     /**
      *
@@ -62,7 +62,7 @@ public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 	} else {
 	    box.setSize(x, y - titleLabel.getY() - titleLabel.getHeight() - 10);
 	}
-	
+
 	if (enterButton != null) {
 	    enterButton.setLocation(x - enterButton.getWidth(), box.getY());
 	    box.setSize(x - enterButton.getWidth() - 5, box.getHeight());
@@ -196,7 +196,7 @@ public class LComboBox<T extends Object> extends LUserSetting<Integer> {
     protected void addUpdateHandlers() {
 	box.addActionListener(new UpdateHandler());
     }
-    
+
     /**
      *
      * @param label

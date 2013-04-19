@@ -19,16 +19,16 @@ import javax.swing.event.DocumentListener;
 
 /**
  *
- * @param <T> 
+ * @param <T>
  * @author Justin Swanson
  */
 public class LComboSearchBox<T extends Object> extends LComboBox<T> {
 
-    Set<T> backup;
-    JTextField search;
+    protected Set<T> backup;
+    protected JTextField search;
     static String searchText = "Search...";
-    LButton enterButton;
-    FilterWorker worker = new FilterWorker("");
+    protected LButton enterButton;
+    protected FilterWorker worker = new FilterWorker("");
 
     /**
      *

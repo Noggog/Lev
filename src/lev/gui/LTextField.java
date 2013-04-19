@@ -16,8 +16,8 @@ import javax.swing.JTextField;
  */
 public class LTextField extends LUserSetting<String> {
 
-    JTextField field;
-    LButton enterButton;
+    protected JTextField field;
+    protected LButton enterButton;
 
     /**
      *

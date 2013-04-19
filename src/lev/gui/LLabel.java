@@ -15,11 +15,11 @@ import javax.swing.JLabel;
  */
 public class LLabel extends LComponent {
 
-    JLabel mainText;
-    JLabel shadow;
-    JLabel shadow2;
-    JLabel shadow3;
-    int shadowSpacing = 2;
+    protected JLabel mainText;
+    protected JLabel shadow;
+    protected JLabel shadow2;
+    protected JLabel shadow3;
+    protected int shadowSpacing = 2;
 
     /**
      *

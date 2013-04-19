@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author Justin Swanson
  */
-public class LFileChannel extends LChannel {
+public class LInChannel extends LImport {
 
     /**
      *
@@ -31,14 +32,14 @@ public class LFileChannel extends LChannel {
     /**
      *
      */
-    public LFileChannel() {
+    public LInChannel() {
     }
 
     /**
      *
      * @param path Path to open a channel to.
      */
-    public LFileChannel(final String path) {
+    public LInChannel(final String path) {
 	openFile(path);
     }
 
@@ -46,7 +47,7 @@ public class LFileChannel extends LChannel {
      *
      * @param f File to open a channel to.
      */
-    public LFileChannel(final File f) {
+    public LInChannel(final File f) {
 	openFile(f);
     }
 
@@ -55,7 +56,7 @@ public class LFileChannel extends LChannel {
      * @param rhs
      * @param allocation
      */
-    public LFileChannel(LFileChannel rhs, long allocation) {
+    public LInChannel(LInChannel rhs, long allocation) {
 	slice(rhs, allocation);
     }
 
@@ -64,8 +65,8 @@ public class LFileChannel extends LChannel {
      * @param rhs
      * @param allocation
      */
-    protected void slice(LFileChannel rhs, long allocation) {
-	LFileChannel fc = (LFileChannel) rhs;
+    protected void slice(LInChannel rhs, long allocation) {
+	LInChannel fc = (LInChannel) rhs;
 	iStream = fc.iStream;
 	iChannel = fc.iChannel;
 	end = pos() + allocation;
@@ -81,7 +82,7 @@ public class LFileChannel extends LChannel {
 	    iChannel = iStream.getChannel();
 	    end = iChannel.size();
 	} catch (IOException ex) {
-	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	}
     }
 
@@ -103,7 +104,7 @@ public class LFileChannel extends LChannel {
 	try {
 	    return iStream.read();
 	} catch (IOException ex) {
-	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return -1;
     }
@@ -121,7 +122,7 @@ public class LFileChannel extends LChannel {
 	try {
 	    iChannel.read(buf);
 	} catch (IOException ex) {
-	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	buf.flip();
 	return buf;
@@ -136,7 +137,7 @@ public class LFileChannel extends LChannel {
 	try {
 	    iChannel.position(pos);
 	} catch (IOException ex) {
-	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	}
     }
 
@@ -149,7 +150,7 @@ public class LFileChannel extends LChannel {
 	try {
 	    return iChannel.position();
 	} catch (IOException ex) {
-	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return -1;
     }
@@ -165,7 +166,7 @@ public class LFileChannel extends LChannel {
 		iStream.close();
 		iChannel.close();
 	    } catch (IOException ex) {
-		Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+		Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	}
     }
@@ -199,7 +200,7 @@ public class LFileChannel extends LChannel {
 	try {
 	    iChannel.read(allocate);
 	} catch (IOException ex) {
-	    Logger.getLogger(LFileChannel.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(LInChannel.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return allocate.array();
     }
@@ -218,5 +219,9 @@ public class LFileChannel extends LChannel {
 	    }
 	}
 	return new byte[0];
+    }
+
+    public long transferTo(long position, long count, WritableByteChannel target) throws IOException {
+	return iChannel.transferTo(position, count, target);
     }
 }

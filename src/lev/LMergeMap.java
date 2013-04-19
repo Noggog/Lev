@@ -18,7 +18,7 @@ public class LMergeMap<K, V> implements Iterable<V> {
     Map<K, ArrayList<V>> map;
     boolean sorted;
     boolean unique;
-
+    
     /**
      *
      * @param sorted Whether to use TreeMap as the container.

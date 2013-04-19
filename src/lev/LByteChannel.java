@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author Justin Swanson
  */
-public class LByteChannel extends LChannel {
+public class LByteChannel extends LImport {
 
     byte[] input;
     int pos;

@@ -1321,8 +1321,8 @@ public class Ln {
 	boolean print = numErrorsToPrint != 0;
 	if (keyFile.isFile() && testFile.isFile()) {
 
-	    LFileChannel keyIn = new LFileChannel(keyFile);
-	    LFileChannel testIn = new LFileChannel(testFile);
+	    LInChannel keyIn = new LInChannel(keyFile);
+	    LInChannel testIn = new LInChannel(testFile);
 
 	    if (numErrorsToPrint == 0 && keyIn.available() != testIn.available()) {
 		keyIn.close();

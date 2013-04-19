@@ -1,6 +1,7 @@
 package lev;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * An object that is meant to hold a set of boolean flags. Takes in byte arrays
@@ -137,5 +138,27 @@ public class LFlags implements Serializable {
 	    }
 	}
 	return out;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final LFlags other = (LFlags) obj;
+	if (!Arrays.equals(this.flags, other.flags)) {
+	    return false;
+	}
+	return true;
+    }
+
+    @Override
+    public int hashCode() {
+	int hash = 3;
+	hash = 83 * hash + Arrays.hashCode(this.flags);
+	return hash;
     }
 }

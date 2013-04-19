@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
  *
  * @author Justin Swanson
  */
-public class LShrinkArray extends LChannel {
+public class LShrinkArray extends LImport {
 
     private ByteBuffer buffer;
 
@@ -42,13 +42,13 @@ public class LShrinkArray extends LChannel {
 
     /**
      * Creates a new ShrinkArray based on the same underlying array, starting at
-     * the same beginning index of the rhs LChannel, but with an upper limit
+     * the same beginning index of the rhs LImport, but with an upper limit
      * of high.
      *
-     * @param rhs LChannel to copy bounds from.
+     * @param rhs LImport to copy bounds from.
      * @param high New upper limit to give to the ShrinkArray.
      */
-    public LShrinkArray(final LChannel rhs, final int high) {
+    public LShrinkArray(final LImport rhs, final int high) {
 	if (rhs.getClass() == getClass()) {
 	    LShrinkArray rhss = (LShrinkArray) rhs;
 	    buffer = rhss.buffer.slice();
@@ -74,7 +74,7 @@ public class LShrinkArray extends LChannel {
      * @throws IOException
      */
     public LShrinkArray(final File f) throws FileNotFoundException, IOException {
-	LFileChannel in = new LFileChannel(f);
+	LInChannel in = new LInChannel(f);
 	buffer = ByteBuffer.wrap(in.extract(0, in.available()));
 	in.close();
     }
@@ -172,5 +172,35 @@ public class LShrinkArray extends LChannel {
     @Override
     public void close() {
 	buffer.clear();
+    }
+    
+    @Override
+    public String toString() {
+	long pos = pos();
+	buffer.position(0);
+	int[] bytes = Ln.toIntArray(getAllBytes());
+	buffer.position((int)pos);
+	int count = 0;
+	String out = "";
+	for (int i = 0 ; i < bytes.length && i < 1000 ; i++) {
+	    
+	    out += Ln.printHex(bytes[i]);
+	    
+	    if (i + 1 == pos) {
+		out += ">";
+	    } else if (i == pos) {
+		out += "<";
+	    } else {
+		out += " ";
+	    }
+	    
+	    // New line
+	    count++;
+	    if (count == 16) {
+		count = 0;
+		out += "\n";
+	    }
+	}
+	return out;
     }
 }

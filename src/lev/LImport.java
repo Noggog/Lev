@@ -14,7 +14,7 @@ import java.util.zip.Inflater;
  *
  * @author Justin Swanson
  */
-public abstract class LChannel {
+public abstract class LImport {
 
     /**
      * Reads in one integer and moves the position up one

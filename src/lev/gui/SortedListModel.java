@@ -15,6 +15,9 @@ import javax.swing.AbstractListModel;
 public class SortedListModel<T extends Object> extends AbstractListModel {
 
     // Define a SortedSet
+    /**
+     *
+     */
     protected SortedSet<T> model;
 
     /**

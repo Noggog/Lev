@@ -221,6 +221,14 @@ public class LInChannel extends LImport {
 	return new byte[0];
     }
 
+    /**
+     *
+     * @param position
+     * @param count
+     * @param target
+     * @return
+     * @throws IOException
+     */
     public long transferTo(long position, long count, WritableByteChannel target) throws IOException {
 	return iChannel.transferTo(position, count, target);
     }

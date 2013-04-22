@@ -24,10 +24,22 @@ import javax.swing.event.DocumentListener;
  */
 public class LComboSearchBox<T extends Object> extends LComboBox<T> {
 
+    /**
+     *
+     */
     protected Set<T> backup;
+    /**
+     *
+     */
     protected JTextField search;
     static String searchText = "Search...";
+    /**
+     *
+     */
     protected LButton enterButton;
+    /**
+     *
+     */
     protected FilterWorker worker = new FilterWorker("");
 
     /**

@@ -12,7 +12,7 @@ import java.nio.ByteBuffer;
  * @author Justin Swanson
  */
 public abstract class LExport {
-    
+
     /**
      *
      * @param file File to open an exporter to.
@@ -58,10 +58,15 @@ public abstract class LExport {
         }
     }
 
+    /**
+     *
+     * @param size
+     * @throws IOException
+     */
     public void writeZeros(int size) throws IOException {
 	write(new byte[size]);
     }
-    
+
     /**
      * Writes an integer to the file.  Can span multiple bytes if the integer is large.
      * @param input Integer to output.
@@ -80,6 +85,13 @@ public abstract class LExport {
     public void write(int input) throws IOException {
 	write(Ln.toByteArray(input));
     }
+
+    /**
+     *
+     * @param b
+     * @throws IOException
+     */
+    public abstract void write(byte b) throws IOException;
 
     /**
      * Writes a string to the output (no null terminator).

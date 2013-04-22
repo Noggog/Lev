@@ -17,15 +17,45 @@ import lev.gui.resources.LImages;
  */
 public class LHelpPanel extends LPanel {
 
+    /**
+     *
+     */
     protected LLabel setting;
+    /**
+     *
+     */
     protected LTextPane help;
+    /**
+     *
+     */
     protected Image arrow;
+    /**
+     *
+     */
     protected int arrowx;
+    /**
+     *
+     */
     protected int y;
+    /**
+     *
+     */
     protected int textOffset = 0;
+    /**
+     *
+     */
     protected LPanel bottomArea;
+    /**
+     *
+     */
     protected boolean textVisible = true;
+    /**
+     *
+     */
     protected boolean hideArrow = false;
+    /**
+     *
+     */
     protected boolean following = true;
 
     /**

@@ -10,6 +10,12 @@ package lev.gui;
  */
 public class SaveDouble extends Setting<Double> {
 
+    /**
+     *
+     * @param title_
+     * @param data_
+     * @param extraFlags
+     */
     public SaveDouble(String title_, Double data_, Boolean[] extraFlags) {
         super(title_, data_, extraFlags);
     }

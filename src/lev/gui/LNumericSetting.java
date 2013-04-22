@@ -17,6 +17,9 @@ import javax.swing.event.ChangeListener;
  */
 public class LNumericSetting extends LUserSetting<Integer> {
 
+    /**
+     *
+     */
     protected LSpinner setting;
 
     /**

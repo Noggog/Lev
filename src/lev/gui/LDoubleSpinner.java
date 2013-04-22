@@ -15,10 +15,26 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
+/**
+ *
+ * @author Justin Swanson
+ */
 public class LDoubleSpinner extends LUserSetting<Double> {
 
+    /**
+     *
+     */
     protected JSpinner spinner;
 
+    /**
+     *
+     * @param title
+     * @param init
+     * @param min
+     * @param max
+     * @param step
+     * @param width
+     */
     public LDoubleSpinner(String title, double init, double min, double max, double step, int width) {
         super(title);
         SpinnerModel model = new SpinnerNumberModel(init, min, max, step);
@@ -67,10 +83,18 @@ public class LDoubleSpinner extends LUserSetting<Double> {
         }
     }
 
+    /**
+     *
+     * @param in
+     */
     public void setValue(int in) {
         spinner.setValue(Integer.valueOf(in));
     }
 
+    /**
+     *
+     * @param in
+     */
     public void setValue(double in) {
         spinner.setValue(Double.valueOf(in));
     }
@@ -81,6 +105,10 @@ public class LDoubleSpinner extends LUserSetting<Double> {
         editor.getTextField().addFocusListener(arg0);
     }
 
+    /**
+     *
+     * @param c
+     */
     public void addChangeListener(ChangeListener c) {
         spinner.addChangeListener(c);
     }

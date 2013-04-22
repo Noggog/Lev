@@ -21,8 +21,17 @@ import lev.gui.LHelpComponent.HelpFocusHandler;
  */
 public class LComboBox<T extends Object> extends LUserSetting<Integer> {
 
+    /**
+     *
+     */
     protected JComboBox<T> box;
+    /**
+     *
+     */
     protected T previous;
+    /**
+     *
+     */
     protected LButton enterButton;
 
     /**

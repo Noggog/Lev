@@ -17,9 +17,21 @@ import lev.gui.resources.LFonts;
  */
 public class LProgressBar extends LComponent implements LProgressBarInterface {
 
+    /**
+     *
+     */
     protected JProgressBar bar;
+    /**
+     *
+     */
     protected boolean pause;
+    /**
+     *
+     */
     protected LLabel status;
+    /**
+     *
+     */
     protected boolean centered = true;
     LCheckBox done = new LCheckBox("", LFonts.Typo3(1), Color.BLACK);
 

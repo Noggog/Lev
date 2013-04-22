@@ -11,10 +11,26 @@ import java.awt.event.FocusListener;
 import java.util.Map;
 import javax.swing.event.ChangeListener;
 
+/**
+ *
+ * @author Justin Swanson
+ */
 public class LDoubleSetting extends LUserSetting<Double> {
 
+    /**
+     *
+     */
     protected LDoubleSpinner setting;
 
+    /**
+     *
+     * @param text
+     * @param font
+     * @param c
+     * @param min
+     * @param max
+     * @param step
+     */
     public LDoubleSetting(String text, Font font, Color c, double min, double max, double step) {
         super(text, font, c);
         setting = new LDoubleSpinner(text, min, min, max, step, Double.toString(1.1111D).length());
@@ -38,10 +54,18 @@ public class LDoubleSetting extends LUserSetting<Double> {
         setVisible(true);
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setValue(String s) {
         setValue(Integer.parseInt(s));
     }
 
+    /**
+     *
+     * @param d
+     */
     public void setValue(double d) {
         setting.setValue(d);
     }
@@ -71,10 +95,18 @@ public class LDoubleSetting extends LUserSetting<Double> {
         setting.addFocusListener(arg0);
     }
 
+    /**
+     *
+     * @param c
+     */
     public void addChangeListener(ChangeListener c) {
         setting.addChangeListener(c);
     }
 
+    /**
+     *
+     * @param c
+     */
     public void setColor(Color c) {
         titleLabel.setForeground(c);
     }

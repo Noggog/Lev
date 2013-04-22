@@ -21,10 +21,25 @@ import javax.imageio.ImageIO;
  */
 public class LImagePane extends LPanel {
 
+    /**
+     *
+     */
     protected BufferedImage img;
+    /**
+     *
+     */
     protected int IMG_WIDTH = 0;
+    /**
+     *
+     */
     protected int IMG_HEIGHT = 0;
+    /**
+     *
+     */
     protected boolean allowAlpha = true;
+    /**
+     *
+     */
     protected float alpha = 1;
 
     /**

@@ -1694,7 +1694,13 @@ public class Ln {
     public static String standardizeFilePath(String filePath) {
 	return filePath.replace("\\", "/");
     }
-    
+
+    /**
+     * Returns the first index that has a string containing s.
+     * @param list
+     * @param s
+     * @return
+     */
     public static int indexOfContains(ArrayList<String> list, String s) {
 	for (int i = 0 ; i < list.size() ; i++) {
 	    if (list.get(i).contains(s)) {
@@ -1704,14 +1710,26 @@ public class Ln {
 	return -1;
     }
 
+    /**
+     * True if list has a string that contains s.
+     * @param list
+     * @param s
+     * @return
+     */
     public static boolean contains(ArrayList<String> list, String s) {
 	return -1 != indexOfContains(list, s);
     }
-    
+
+    /**
+     * True if list has a string equaling s, ignoring case.
+     * @param list
+     * @param s
+     * @return
+     */
     public static boolean containsEqualsIgnoreCase(ArrayList<String> list, String s) {
 	return -1 != indexOfIgnoreCase(list, s);
     }
-    
+
     /**
      * A contains() check that's case insensitive.
      *

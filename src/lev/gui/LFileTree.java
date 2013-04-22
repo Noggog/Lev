@@ -19,7 +19,13 @@ import lev.Ln;
  */
 public class LFileTree {
 
+    /**
+     *
+     */
     protected DefaultTreeModel tree;
+    /**
+     *
+     */
     protected DefaultMutableTreeNode root;
 
     /**

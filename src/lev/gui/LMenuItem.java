@@ -14,6 +14,9 @@ import javax.swing.JMenuItem;
  */
 public class LMenuItem extends LHelpComponent {
 
+    /**
+     *
+     */
     protected JMenuItem menuItem;
 
     /**

@@ -22,7 +22,13 @@ public abstract class LHelpComponent extends LComponent {
      * The target help panel.
      */
     protected LHelpPanel help = null;
+    /**
+     *
+     */
     protected String helpPrefix = "";
+    /**
+     *
+     */
     protected boolean followPos = true;
     /**
      *

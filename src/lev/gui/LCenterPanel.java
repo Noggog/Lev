@@ -13,6 +13,9 @@ import java.util.ArrayList;
  */
 public class LCenterPanel extends LPanel {
 
+    /**
+     *
+     */
     protected ArrayList<Component> components = new ArrayList<>();
 
     @Override

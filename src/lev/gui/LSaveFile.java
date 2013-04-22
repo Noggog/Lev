@@ -28,6 +28,9 @@ import javax.swing.JOptionPane;
  */
 public abstract class LSaveFile {
 
+    /**
+     *
+     */
     protected File location;
     /**
      * List containing default, save, temp, and current setting maps.
@@ -45,12 +48,21 @@ public abstract class LSaveFile {
      * Stores the current settings displayed on the GUI.
      */
     protected Map<Enum, Setting> curSettings = new TreeMap<>();
+    /**
+     *
+     */
     protected Map<Enum, Setting> cancelSave = new TreeMap<>();
+    /**
+     *
+     */
     protected Map<Enum, Setting> peekSave = new TreeMap<>();
     /**
      * Map containing the help text associated with settings in the saveFile.
      */
     protected Map<Enum, String> helpInfo = new TreeMap<>();
+    /**
+     *
+     */
     protected boolean initialized = false;
 
     /**
@@ -646,10 +658,20 @@ public abstract class LSaveFile {
 	curSettings.get(e).setTo(strs);
     }
 
+    /**
+     *
+     * @param e
+     * @param s
+     */
     public void addString(Enum e, String s) {
 	curSettings.get(e).getStrings().add(s);
     }
 
+    /**
+     *
+     * @param e
+     * @param s
+     */
     public void removeString(Enum e, String s) {
 	curSettings.get(e).getStrings().remove(s);
     }

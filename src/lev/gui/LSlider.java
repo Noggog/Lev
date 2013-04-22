@@ -16,6 +16,9 @@ import javax.swing.event.ChangeListener;
  */
 public class LSlider extends LUserSetting<Integer> {
 
+    /**
+     *
+     */
     protected JSlider slider;
 
     /**

@@ -23,7 +23,13 @@ public class LChart extends JPanel {
      *
      */
     protected JFreeChart chart;
+    /**
+     *
+     */
     protected ChartPanel cPanel;
+    /**
+     *
+     */
     protected LLabel title;
 
     /**

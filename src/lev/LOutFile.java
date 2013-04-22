@@ -33,6 +33,16 @@ public class LOutFile extends LExport {
 	super(path);
     }
 
+    /**
+     *
+     * @param b
+     * @throws IOException
+     */
+    @Override
+    public void write(byte b) throws IOException {
+	output.write(b);
+    }
+
     @Override
     public void write(byte[] array) throws IOException {
 	output.write(array);

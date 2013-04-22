@@ -20,8 +20,17 @@ import javax.swing.text.*;
  */
 public class LTextArea extends LComponent {
 
+    /**
+     *
+     */
     protected JScrollPane scroll;
+    /**
+     *
+     */
     protected JTextArea area;
+    /**
+     *
+     */
     protected Document doc;
 
     /**

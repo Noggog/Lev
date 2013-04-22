@@ -16,6 +16,9 @@ import javax.swing.text.View;
  */
 public class LEditorPane extends LComponent {
 
+    /**
+     *
+     */
     protected JEditorPane pane;
 
     /**

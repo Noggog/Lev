@@ -15,10 +15,25 @@ import javax.swing.JLabel;
  */
 public class LLabel extends LComponent {
 
+    /**
+     *
+     */
     protected JLabel mainText;
+    /**
+     *
+     */
     protected JLabel shadow;
+    /**
+     *
+     */
     protected JLabel shadow2;
+    /**
+     *
+     */
     protected JLabel shadow3;
+    /**
+     *
+     */
     protected int shadowSpacing = 2;
 
     /**

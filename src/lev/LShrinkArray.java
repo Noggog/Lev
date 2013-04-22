@@ -140,7 +140,12 @@ public class LShrinkArray extends LImport {
 	}
 	return new byte[0];
     }
-    
+
+    /**
+     *
+     * @param delimiter
+     * @return
+     */
     public byte[] extractUntil(String delimiter) {
 	return extractUntil(Ln.toByteArray(delimiter));
     }
@@ -173,7 +178,7 @@ public class LShrinkArray extends LImport {
     public void close() {
 	buffer.clear();
     }
-    
+
     @Override
     public String toString() {
 	long pos = pos();
@@ -183,9 +188,9 @@ public class LShrinkArray extends LImport {
 	int count = 0;
 	String out = "";
 	for (int i = 0 ; i < bytes.length && i < 1000 ; i++) {
-	    
+
 	    out += Ln.printHex(bytes[i]);
-	    
+
 	    if (i + 1 == pos) {
 		out += ">";
 	    } else if (i == pos) {
@@ -193,7 +198,7 @@ public class LShrinkArray extends LImport {
 	    } else {
 		out += " ";
 	    }
-	    
+
 	    // New line
 	    count++;
 	    if (count == 16) {

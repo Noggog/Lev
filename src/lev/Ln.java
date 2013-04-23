@@ -1339,7 +1339,7 @@ public class Ln {
 	    for (int i = 0; i < keyArray.length && i < testArray.length; i++) {
 		if (keyArray[i] != testArray[i]) {
 		    if (print) {
-			System.out.println("Patch differed at " + Ln.prettyPrintHex(i));
+			System.out.println("Files differed at " + Ln.prettyPrintHex(i));
 		    }
 		    passed = false;
 		    if (--numErrorsToPrint == 0) {
@@ -1349,12 +1349,12 @@ public class Ln {
 	    }
 	    if (passed) {
 		if (print) {
-		    System.out.println("Patch was validated.");
+		    System.out.println("Files matched.");
 		}
 		return true;
 	    } else {
 		if (print) {
-		    System.out.println("Patch was NOT validated.");
+		    System.out.println("Files did NOT match.");
 		}
 		return false;
 	    }

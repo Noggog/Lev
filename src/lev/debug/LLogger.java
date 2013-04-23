@@ -50,6 +50,9 @@ public class LLogger {
      * @param filePath Path to give the special log.
      */
     public void addSpecial(Enum key, String filePath) {
+	if (special.containsKey(key)) {
+	    special.get(key).closeDebugFile();
+	}
 	special.put(key, new LDebug(debugPath + filePath, 50));
     }
 

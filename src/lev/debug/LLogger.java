@@ -7,6 +7,7 @@ package lev.debug;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import lev.Ln;
@@ -19,16 +20,16 @@ import lev.Ln;
  */
 public class LLogger {
 
-    private String debugPath;
-    private LDebug main;
-    private LDebug synced;
-    private boolean syncing = false;
-    private LDebug asynced;
-    private boolean logging = true;
-    private boolean loggingSync = true;
-    private boolean loggingAsync = true;
-    private static boolean mainLogSwitch = true;
-    private Map<Enum, LDebug> special = new HashMap<>();
+    protected String debugPath;
+    protected LDebug main;
+    protected LDebug synced;
+    protected boolean syncing = false;
+    protected LDebug asynced;
+    protected boolean logging = true;
+    protected boolean loggingSync = true;
+    protected boolean loggingAsync = true;
+    protected static boolean mainLogSwitch = true;
+    protected Map<Enum, LDebug> special = new HashMap<>();
 
     /**
      *
@@ -238,8 +239,9 @@ public class LLogger {
      */
     public void logSpecial(Enum e, String header, String... log) {
 	if (logging()) {
-	    if (special.containsKey(e)) {
-		special.get(e).w(header, log);
+	    LDebug spec = special.get(e);
+	    if (spec != null) {
+		spec.w(header, log);
 	    }
 	}
     }
@@ -269,17 +271,16 @@ public class LLogger {
      * Closes all associated Debug files.
      */
     public void close() {
-	if (main != null) {
-	    main.closeDebugFile();
-	}
-	if (asynced != null) {
-	    asynced.closeDebugFile();
-	}
-	if (synced != null) {
-	    synced.closeDebugFile();
-	}
-	for (LDebug d : special.values()) {
+	for (LDebug d : allDebugs()) {
 	    d.closeDebugFile();
 	}
+    }
+    
+    public ArrayList<LDebug> allDebugs() {
+	ArrayList<LDebug> out = new ArrayList<>(special.values());
+	out.add(main);
+	out.add(asynced);
+	out.add(synced);
+	return out;
     }
 }

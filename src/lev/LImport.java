@@ -58,9 +58,7 @@ public abstract class LImport {
      * @return String representation of the bytes read.
      */
     public String extractString(int amount) {
-	String out = getString(amount);
-	skip(amount);
-	return out;
+	return Ln.arrayToString(extract(amount));
     }
 
     /**
@@ -245,7 +243,9 @@ public abstract class LImport {
      * @return
      */
     public String getString(int amount) {
-	return Ln.arrayToString(getInts(0, amount));
+	String out = extractString(amount);
+	jumpBack(amount);
+	return out;
     }
 
     /**

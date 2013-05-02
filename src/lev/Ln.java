@@ -1168,6 +1168,17 @@ public class Ln {
 	return a;
     }
 
+    public static int gcd(int ... nums) {
+	if (nums.length == 1) {
+	    return nums[0];
+	} else if (nums.length == 2) {
+	    return gcd(nums[0], nums[1]);
+	} else {
+	    int[] rest = Arrays.copyOfRange(nums, 1, nums.length);
+	    return gcd(nums[0], lcmm(rest));
+	}
+    }
+    
     /**
      * Returns least common multiple
      *

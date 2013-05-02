@@ -28,6 +28,7 @@ public abstract class LExport {
      * @throws FileNotFoundException
      */
     public LExport(String path) throws FileNotFoundException {
+	Ln.makeDirs(path);
         openOutput(path);
     }
 

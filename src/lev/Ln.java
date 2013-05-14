@@ -1175,10 +1175,10 @@ public class Ln {
 	    return gcd(nums[0], nums[1]);
 	} else {
 	    int[] rest = Arrays.copyOfRange(nums, 1, nums.length);
-	    return gcd(nums[0], lcmm(rest));
+	    return gcd(nums[0], gcd(rest));
 	}
     }
-    
+
     /**
      * Returns least common multiple
      *

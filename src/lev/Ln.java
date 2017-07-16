@@ -1,7 +1,5 @@
 package lev;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -1242,7 +1240,11 @@ public class Ln {
 	// Check for save file
 	if (backupFileLocation.isFile()) {
 	    BufferedReader pluginLocation = new BufferedReader(new FileReader(backupFileLocation));
-	    return new File(pluginLocation.readLine());
+	    File savedFile = new File(pluginLocation.readLine());
+	    pluginLocation.close();
+	    if (savedFile.isFile()) {
+		return savedFile;
+	    }
 	}
 
 	// Open dialog box
@@ -1530,61 +1532,6 @@ public class Ln {
 	} else {
 	    return "";
 	}
-    }
-
-    /**
-     * Custom JSON parser that exports it as a JSON file string.
-     *
-     * @param object
-     * @param exclude
-     * @return
-     */
-    public static String toJsonPretty(JsonElement object, String... exclude) {
-	String out = "{\n";
-	ArrayList<String> excludeList = new ArrayList<>(Arrays.asList(exclude));
-	out += toJsonPretty(object, 1, excludeList);
-	return out + "\n}";
-    }
-
-    static String toJsonPretty(JsonElement object, int depth, ArrayList<String> exclude) {
-	if (object.isJsonPrimitive()) {
-	    return object.getAsJsonPrimitive().toString();
-	}
-	String out = "";
-	String tabs = "";
-	for (int i = 0; i < depth; i++) {
-	    tabs += "\t";
-	}
-
-	if (object.isJsonArray()) {
-	    JsonArray array = object.getAsJsonArray();
-	    out += "\n" + tabs + "[";
-	    boolean firstIndex = true;
-	    for (JsonElement entry : array) {
-		if (firstIndex) {
-		    firstIndex = false;
-		} else {
-		    out += ",";
-		}
-		out += toJsonPretty(entry, depth + 1, exclude);
-	    }
-	    out += "\n" + tabs + "]";
-	} else if (object.isJsonObject()) {
-	    Set<Entry<String, JsonElement>> set = object.getAsJsonObject().entrySet();
-	    boolean first = true;
-	    for (Entry<String, JsonElement> entry : set) {
-		if (!exclude.contains(entry.getKey())) {
-		    if (!first) {
-			out += ",\n";
-		    } else {
-			first = false;
-		    }
-		    out += tabs + "\"" + entry.getKey() + "\" : ";
-		    out += toJsonPretty(entry.getValue(), depth + 1, exclude);
-		}
-	    }
-	}
-	return out;
     }
 
     /**
